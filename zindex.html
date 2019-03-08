@@ -1,0 +1,66 @@
+<head>
+<style>
+ 
+#content {
+  color: black;
+}
+
+#content div#main-content h2{
+  color:blue;
+  font-size: 100px;
+}
+
+.outer{
+  background-color: red;
+  border: solid blue 1px;
+ 
+}
+
+.outer:after {
+  clear: both;
+  content: " ";
+  display: block;
+}
+.inner{
+  float: left;
+  width: 50px;
+  height: 50px;
+  background-color: lightcoral;
+  border: black solid 1px;
+}
+
+#top-block{
+  height: 100px;
+}
+</style>
+
+<link rel="stylesheet/less" href="./test.less" type="text/css">
+<script  src="less.min.js" ></script>
+</head>
+
+<body>
+<div id="top-block">
+
+</div>
+  
+  
+
+
+<div id="content">
+    <div id="main-content">
+        <h2>和大家客户的数据库</h2>
+        <div class="news-story">
+          <h2 class="first">大量卡萨丁</h2>
+        </div>
+    </div>
+</div>
+
+
+<div class="outer">
+  <div class="inner">1</div>
+  <div class="inner">2</div>
+  <div class="inner">3</div>
+ 
+</div>
+ 
+</body>

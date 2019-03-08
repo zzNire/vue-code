@@ -177,3 +177,15 @@ import {myname , getHabby} from '...';;
 * reduce() reduceRight()
 
 ### Date
+
+
+### Function
+* 函数内部属性
+  * arguments.callee 指向拥有该arguments的函数
+  * this 引用的是函数执行的环境对象
+  * caller 当前函数的函数的引用
+* 函数属性和方法
+  * length 参数个数
+  * prototype  ----------------见后续
+  * apply(),call()
+  * bind() 会创建函数实例

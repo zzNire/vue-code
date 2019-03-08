@@ -1,0 +1,81 @@
+@color:#999999;
+
+.background(){
+    background-color:@color;
+    opacity:0.5;
+}
+
+#top-block{
+    .background()
+}
+
+body{
+    #top-block{
+        color:red;
+    }
+    div{
+        background-color: gray;
+    }
+
+}
+
+.triangle(top,@width:20px,@color:#000){
+    border-color:transparent  transparent @color transparent ;
+}
+.triangle(right,@width:20px,@color:#000){
+    border-color:transparent @color transparent  transparent ;
+}
+
+.triangle(bottom,@width:20px,@color:#000){
+    border-color:@color transparent  transparent  transparent ;
+}
+.triangle(left,@width:20px,@color:#000){
+    border-color:transparent  transparent  transparent @color;
+}
+.triangle(@_,@width:20px,@color:#000){
+    border-style: solid;
+    border-width: @width;
+}
+
+@x:abc;
+#main{
+    .triangle(left, 50px, #999)
+}
+
+
+#card(){
+    background: #723232;
+    .d(@w:300px){
+        width: @w;
+        
+        #a(@h:300px){
+            height: @h;//可以使用上一层传进来的方法
+        }
+    }
+}
+#wrap{
+    #card   .d #a(100px); // 父元素不能加 括号
+}
+#main{
+    #card .d();
+}
+#con{
+    //不得单独使用命名空间的方法
+    //.d() 如果前面没有引入命名空间 #card ，将会报错
+    
+    #card; // 等价于 #card();
+    .d(20px); //必须先引入 #card
+}
+
+
+
+.boxShadow(...){
+    box-shadow: @arguments;
+}
+.textShadow(@a:10px,...){
+    text-shadow: @arguments;
+}
+#main{
+    .boxShadow(1px,4px,30px,red);
+    .textShadow(1px);
+}

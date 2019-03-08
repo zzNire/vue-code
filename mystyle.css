@@ -1,0 +1,47 @@
+#top{
+    background-color: yellow;
+    height: 100px;
+}
+
+#article{
+    
+}
+#icon {
+    height: 40px;
+    width:100px;
+    background-color: red;
+    float: left;
+    opacity: 0.5;
+}
+
+#content{
+    
+    margin: 0px;
+    background-color: blue;
+    color:white;
+}
+
+#menu{
+    background: yellow;
+    height:180px;
+}
+
+#column1{
+    float: left;
+    width:180px;
+    overflow: hidden;
+    background-color:red;
+    height: 100%;
+}
+
+#column2{
+    background-color: green;
+    overflow: hidden;
+    height: 100%;
+}
+#column3{
+  float: right;
+  width: 33%;
+  background-color: blue;
+  
+}
