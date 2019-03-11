@@ -115,3 +115,14 @@ function sss(a)
 }
 
 console.log(sss(['toString','toString','valueOf']));
+
+
+console.log("------------------------------");
+var Person = function (){
+    name:"nirean";
+}
+
+Person
+
+var num  = "123456";
+num.

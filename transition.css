@@ -1,0 +1,28 @@
+#scale{
+    height: 50px;
+    width: 50px;
+    background-color: lightskyblue;
+    transition:1s ,1s 1s opacity;
+  
+}
+
+#scale:hover{
+    height: 100px;
+    width: 100px;
+    opacity: 0.5;
+}
+
+.ani-rot3{
+    animation: 2s infinite loading-point steps(8,start);
+    margin: 10px;
+}
+
+@keyframes loading-point{
+    0%  {
+        transform: rotate(0);
+    }
+    100%  {
+        transform: rotate(360deg);
+    }
+}
+
