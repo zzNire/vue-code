@@ -149,3 +149,102 @@ console.log(father.lastname); /* 控制台显示c，父亲自己的姓并没有�
                                  通过改姓来认贼作父的惨痛事实而改变 */
 console.log(son.constructor); //控制台显示儿子自己的构造函数(本质)
 console.log(son.gene); //控制台显示儿子自己的生父
+
+//闭包
+
+function setData(){
+    var data = [];
+    for(var i=0;i<3;i++){
+        data[i] = (function(i){
+            return function(){
+                 console.log(i);
+            }
+        })(i);             
+    }
+    return data;
+}
+var data = setData();
+data[1]();
+
+var data = [];
+
+for (var i = 0; i < 3; i++) {
+  setTimeout((msg)=>{
+    data[i] = function(){
+        console.log(msg);
+    }
+  },0,i)
+       
+ 
+}
+
+data[0]();
+data[1]();
+data[2]();
+
+function showTime(){
+    var date = 12;
+   
+    return {
+        showDay :
+             function(){
+                console.log(date);
+            }
+        ,
+        showTime : (function(){
+                var myday = date;
+                 console.log(myday);
+            }
+        )(),
+        setData : function(){
+             date++;
+            console.log(date)}
+    }
+}
+
+var day = showTime();
+day.showDay();
+day.setData(13);
+day.showTime();
+
+
+function callback() {
+}
+
+// 插入script标签并监听加载
+var head = document.getElementsByTagName('head')[0];
+var script = document.createElement('script');
+script.type= 'text/javascript';
+script.onload = script.onreadystatechange = function() {
+  if (!this.readyState || this.readyState === "loaded" 
+                                || this.readyState === "complete" ) {
+    callback();
+    // Handle memory leak in IE
+    script.onload = script.onreadystatechange = null;
+  }
+};
+script.src= scriptSrc;
+head.appendChild(script);
+
+
+let obj = {
+    a: 1,
+    b: {
+      c: 2,
+    },
+  }
+
+function copyObj(obj){
+    var copy = {};
+    for(key in obj){
+        if(typeof obj[key] === 'object'){
+           copy[key] = copyObj(obj[key]);
+        }
+        else{
+            copy[key] = obj[key];
+        }
+    }
+    return copy;
+}
+
+var x = copyObj(obj);

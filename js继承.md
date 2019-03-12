@@ -31,6 +31,7 @@
     * 构造函数 创建 实例属性
     * 原型模式 创建 共享属性  
 
+
 ### 原型 构造函数 实例 
 
 * 原型对象(prototype)
@@ -75,7 +76,54 @@ A.prototype.isPrototypeOf(B)  a是b的原型吗
 
 * 寄生式继承
 
+* Object.create(对象);
+
 * 圣杯模式
 通过圣杯模式可以把一个家族中的各个对象的干扰给截断，以使每个对象在对父类有继承的情况下相互独立，以免各个对象在试图修改自身(特别是自身原型)的属性时影响到其他对象。
 
 主要看例子里的。
+```
+Father.prototype.lastname = 'C';
+Father.prototype.fortune = 1000000;
+function Father () {
+    this.age = 48;
+}
+function Son () {
+    this.age = 18;
+    this.waste = function () {
+        return this.fortune - 50000;
+    }
+}
+var inherit = (function () { //创建圣杯inherit函数
+/* 使用立即函数的原因：函数执行前会进行预编译，预编译过程都会产生AO，
+如当前案例所示，案例中的立即执行函数(注：以下简称立函)执行前预编译的AO中有buffer函数，
+由于当立函执行完毕时会返回一个匿名函数(注：以下简称匿函)，这个匿函调用了buffer函数，
+最终匿函也被赋予到了inherit函数中，导致立函执行前预编译产生的AO在立函执行完毕后并不会销毁，
+于是buffer函数成为了一个闭包并被一同赋予到了inherit函数中去了，
+这样当在外部使用inherit函数时，将会一直都在使用一个buffer函数，
+而不用每次使用时都再新建一个buffer函数 */
+function buffer () {} //buffer函数是一个闭包，仅用做一个缓冲而不做他用
+return function (targetSon, originFather) { //让目标儿子继承源头父亲
+    
+    buffer.prototype = originFather.prototype; 
+    //targetSon.prototype = buffer.prototype; 
+   /* 不能这么写，因为这样写就相当于使对象targetSon、
+      fatherOrigin和buffer共享原型了 */
+    targetSon.prototype = new buffer(); /* 使对象targetSon试图修改自身属性时
+                                           仅仅是以buffer函数作为对象进行修改，
+                                           而不会影响到其他对象 */
+    targetSon.prototype.constructor = targetSon; //令目标儿子记得自己本质是谁
+    targetSon.prototype.gene = originFather; //令目标儿子记得自己的生父是谁
+    //gen只是用来记录父类
+    }
+    })()
+inherit(Son, Father); //调用圣杯inherit函数
+Son.prototype.lastname = 'X';
+var son = new Son();
+var father = new Father();
+console.log(son.lastname); //控制台显示x，败家儿子成功认贼作父
+console.log(father.lastname); /* 控制台显示c，父亲自己的姓并没有因为败家儿子
+                                 通过改姓来认贼作父的惨痛事实而改变 */
+console.log(son.constructor); //控制台显示儿子自己的构造函数(本质)
+console.log(son.gene); //控制台显示儿子自己的生父
+```
