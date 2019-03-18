@@ -39,7 +39,7 @@ const resolve = p => {
 # require import export
 ## require
 加载模块 CommonJs
-### 模块 (闭包？)
+### 模块
 ```
 var module = (function() {
 var _count = 0;
@@ -148,6 +148,12 @@ import {myname , getHabby} from '...';;
 ### String 
 * num.toString(10);
 * String(num);
+* slice() substr() substring()  start end 截取
+* concat() 
+* charAt() charCodeAt()
+* indexOf() lastIndexOf()
+* search() 第一次出现位置 replace() match() 返回数组
+* split()
 
 ### Object
 * constructor  返回构造函数 创建当前对象的函数
@@ -170,10 +176,10 @@ import {myname , getHabby} from '...';;
 ### Array
 * isArray() toString() valueOf() join()
 * push() pop() shift() unshift()
-* reserve() sort()
-* concat() slice() splice() 
+* reverse() 转置 sort()  return<0 a在前
+* concat() 连接 slice() 起始 和 结束位置 不包括结束位置 splice()  删除起始位置 长度 替换  
 * indexOf() lasetIndexOf()
-* every() some() forEach() filter() map() 
+* every()  全为true 返回true some() 任一为true 返回true  forEach() filter() 所有ture 组成数组 map() 返回数组
 * reduce() reduceRight()
 
 ### Date

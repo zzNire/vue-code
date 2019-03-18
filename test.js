@@ -122,7 +122,19 @@ var Person = function (){
     name:"nirean";
 }
 
-Person
+var x = 1;
+module.exports = x;
+module.exports.x = x;
 
-var num  = "123456";
-num.
+var example = require ("");
+
+var text = "hello";
+module.exports = {
+    text:text,
+    getText:function(){},
+}
+var mytext = require(" ");
+
+
+
+

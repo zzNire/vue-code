@@ -1,59 +1,19 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
+  <script> 
+  
+ 
+  window.addEventListener('storage',(evt)=>{
+   console.log(1);
+   console.log(evt.newValue);
+  })
+   </script>
    
   
 </head>
 
 <body>
-    <div id="top" style="height:200px">
-        <p id="test">test</p>
-    </div>
-
-    <div id='article'>
-        <div id="icon">
-            FLOATED DIV
-        </div>
-        <p id='content'> 
-                属于同一个 BFC 的两个相邻 Box 垂直排列
-                属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠
-                BFC 中子元素的 margin box 的左边， 与包含块 (BFC) border box的左边相接触 (子元素 absolute 除外)
-                BFC 的区域不会与 float 的元素区域重叠
-                计算 BFC 的高度时，浮动子元素也参与计算
-                文字层不会被浮动层覆盖，环绕于周围
-                
-                作者：郭东东
-                链接：https://juejin.im/post/5c64d15d6fb9a049d37f9c20
-                来源：掘金
-                著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-        </p>
-
-    </div>
-    <div id="menu">
-        <div id='column1'>
-            1
-        </div>
-        
-        
-        <div class='column' id="column2">
-             
-                作者：郭东东
-                链接：https://juejin.im/post/5c64d15d6fb9a049d37f9c20
-                来源：掘金
-                著作权归作者所222
-        </div>
-    </div>
-
+  
 </body>
 
-<script  type="text/javascript" src="./people.js">
-     
-</script>
 
-<script  type="text/javascript" src="./css.js">
-     
-</script>
 
-<script>
-    var topHeight = document.getElementById("top").offsetHeight;
-    console.log(topHeight);
-</script>

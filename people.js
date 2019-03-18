@@ -248,3 +248,347 @@ function copyObj(obj){
 }
 
 var x = copyObj(obj);
+
+
+function Father () {
+    this.age = 48;
+}
+function Son () {
+    this.age = 18;
+    this.waste = function () {
+        return this.fortune - 50000;
+    }
+}
+
+function inherit(target,source){
+    var buffer = function(){};
+    return function(target,source){
+        buffer.prototype = source.property;
+        target.property = new buffer();
+        target.property.constructor = target;
+        target.father = source.prototype;
+   }
+}
+
+var x = inherit(Son,Father)();
+
+
+let class2type = {}
+'Array Date RegExp Object Error'.split(' ').forEach(e => class2type[ '[object ' + e + ']' ] = e.toLowerCase()) 
+
+function type(obj) {
+    if (obj == null) return String(obj)
+    return typeof obj === 'object' ? class2type[ Object.prototype.toString.call(obj) ] || 'object' : typeof obj
+}
+
+function Find(target, array)
+{
+    var flag = false;
+    array.forEach((e)=>{
+        e.forEach((x)=>{
+            console.log(x);
+            if(x === target)
+            {
+                console.log("true");
+                flag = true;
+            }
+         })
+     })
+    return new Boolean(flag);
+}
+
+
+function depart_search_start(array,target){
+    var start = 0;
+    var end = array.length-1;
+    var middle = 0;
+    while(start <= end){
+        middle = Math.floor((start+end)/2);
+        if(array[middle] < target){
+            start = middle + 1;
+        }
+        else if(array[middle] > target ){
+            end = middle -1;
+        }
+        else{
+            return middle;
+        }
+    }
+    return start;
+    
+}
+function depart_search_end(array,target){
+    var start = 0;
+    var end = array.length-1;
+    var middle = 0;
+    while(start <= end){
+        middle = Math.floor((start+end)/2);
+        if(array[middle] < target){
+            start = middle + 1;
+        }
+        else if(array[middle] > target ){
+            end = middle -1;
+        }
+        else{
+            return middle;
+        }
+    }
+    return end;
+    
+}
+function getNum(user_num,user_k,que_num,que){
+    var result = [];
+    var user_k_list ={};
+    for(var i=0;i<user_num;i++)
+    {
+        if(!user_k_list.hasOwnProperty(user_k[i])){
+            user_k_list[user_k[i]] = [i+1]; 
+        }
+        else {
+            user_k_list[user_k[i]].push(i+1);
+        }
+    }
+    console.log(user_k_list);
+    que.forEach((each_que)=>{
+                var x = user_k_list[each_que[2]];
+                console.log(x);
+                if(!x) console.log(0);
+                else{
+                    
+                var start = depart_search_start(x,each_que[0]);
+                var end = depart_search_end(x,each_que[1]);
+                console.log(start,end);
+                console.log(x.slice(start,end+1).length);
+                }
+                
+                })
+                //return result.join("\n");
+            }
+var user_num = 5;
+var user_k = [1,2,3,3,5];
+var que_num = 3;
+var que =[[1,2,1],[2,4,5],[3,5,3]];
+getNum(user_num,user_k,que_num,que);
+
+
+//第一次出现
+function binarySearch(a, target) {
+  var start = 0, end = a.length - 1;
+ 
+  while(start <= end) {
+    var mid = ~~((start + end) >> 1);
+    if (a[mid] >= target)
+      end = mid - 1;
+    else 
+      start = mid + 1;
+  }
+ 
+  return a[start] === target ? start : -1;
+}
+
+//最后一次出现
+//先找出第一次出现target+1的位置
+function binarySearch(a, target) {
+    target += 1;
+    var start = 0
+      , end = a.length - 1;
+   
+    while(start <= end) {
+      var mid = ~~((start + end) >> 1);
+      if (a[mid] >= target)
+        end = mid - 1;
+      else 
+        start = mid + 1;
+    }
+   
+    return a[end] === target - 1 ? end : -1;
+  }
+
+//大于等于target的第一个位置
+  function getCount( data, target){
+    var left=0, right = data.length-1, middle=0;
+    while(left <= right){
+        middle = Math.floor((left + right) / 1);
+        if (data[middle] > target)
+            right = middle-1;
+        else if(data[middle] < target)
+            left = middle+1;
+        else
+            return middle;
+    }
+    return left;
+}
+
+//小于等于target的最后一个位置
+function getCount( data, target){
+    var left=0, right = data.length-1, middle=0;
+    while(left <= right){
+        middle = Math.floor((left + right) / 1);
+        if (data[middle] > target)
+            right = middle-1;
+        else if(data[middle] < target)
+            left = middle+1;
+        else
+            return middle;
+    }
+    return right;
+}
+
+//大于target的第一个位置
+// 第一次出现target+1的位置
+function binarySearch(a, target) {
+    target += 1;
+    var start = 0
+      , end = a.length - 1;
+   
+    while(start <= end) {
+      var mid = ~~((start + end) >> 1);
+      if (a[mid] >= target)
+        end = mid - 1;
+      else 
+        start = mid + 1;
+    }
+   
+    return start;
+  }
+ // 如 return 的数等于数组的长度，则表示数组内所有元素都比 target 元素小
+
+
+//小于target的最后一个位置
+// 最后出现target-1的位置
+function binarySearch(a, target) {
+   
+    var start = 0
+      , end = a.length - 1;
+   
+    while(start <= end) {
+      var mid = ~~((start + end) >> 1);
+      if (a[mid] >= target)
+        end = mid - 1;
+      else 
+        start = mid + 1;
+    }
+   
+    return end;
+  }
+  //如果 return -1，则表示数组中没有比 target 元素小的元素了
+
+
+
+  function judgeColor(n,m,c,ball_color){
+    color = {};
+    ball_color.forEach((each_ball,item)=>{
+        if(each_ball[0]!=0){
+            var each_ball_color = each_ball.slice(1);
+            each_ball_color.forEach((each_color)=>{
+                if(!color.hasOwnProperty(each_color))
+                {
+                    color[each_color] = [];
+                    color[each_color].push(item);
+                }
+                else{
+                    color[each_color].push(item);
+                }
+            })
+        }
+        
+    })
+    var count = 0;
+   // console.log(color);
+    for(let key in color)
+    {
+        //console.log("key:"+key);
+        var each_color = color[key];
+        if(each_color.length !== 1)
+        {
+        for(let i = 0;i<each_color.length;i++)
+       {
+         //  console.log("i:"+i);
+          // console.log(Math.abs(each_color[(i+1)%each_color.length]-each_color[i]),n-Math.abs((each_color[(i+1)%each_color.length]-each_color[i])));
+           if(Math.abs(each_color[(i+1)%each_color.length]-each_color[i])<m||n-Math.abs((each_color[(i+1)%each_color.length]-each_color[i]))<m)
+           {
+               count++;
+               break;
+           }
+       }
+    }
+    }
+    console.log( count);
+       
+
+  }
+
+  var n =5,m=2,c=3;
+  var ball_color = [[3,1,2,3],[0],[2,2,3],[1,2],[1,3]];
+  judgeColor(n,m,c,ball_color);
+
+
+
+  var subsets = function(nums) {
+    var result = [[]];
+    for(let i=0;i<nums.length;i++)
+    {
+       for(let j in result){
+           result.push([...result[j],nums[i]]);
+       }
+     } 
+    return result;
+};
+
+function reserveAdd(array,start,end)
+{
+    
+    var  a = [];
+    for(let i = 0;i<array.length;i++)
+    {
+        a.push(array.charAt(i));
+    }
+    var part = a.slice(start,start+end);
+    part = part.reverse();
+    a.splice(start+end,0,...part);
+    return a.toString().replace(/[,]/g,"");
+}
+
+function getNum(n,s,l){
+    var max =Math.floor((l+1)/(s+1));
+    //console.log(max);
+    var flag = false;
+    if(max%13 === 0)
+    {
+        max--;
+       // flag = true;
+    }
+    var num = Math.floor(n/max);
+    if(n%max) { num ++};
+    //console.log(num);
+    var real = Math.floor(n/max);
+    if((n-real*max)%13 === 0 && n-real*max!==0)
+    {
+        if(num === 1)
+        {
+            num++;
+        }
+        var rest = n-real*max + max;
+        for(i= Math.floor(rest/2);i<rest;i++){
+            if(i>max)
+            {
+                break;
+            }
+            if(i%13 && (rest-i)%13)
+            {
+                flag = true;
+                break;
+            }
+            
+        }
+        if(flag === false)
+        {
+            num++;
+        }
+        else{
+           
+        }
+         
+    }
+    console.log(num);
+}

@@ -1,0 +1,67 @@
+<head>
+
+
+</head>
+
+<body>
+    <input  id = 'name-input' type="text" value="xxx">
+    <div id = "big-button" style="height:10000px; background-color:red"></div>
+</body>
+
+<script>
+
+function debounce(fn,wait){
+    var timer = null;
+    console.log(this);
+    return function(){
+        //var that = this;
+        //var args = arguments;
+        console.log(this);
+        if(timer)
+        {
+            clearTimeout(timer);
+            
+        }
+        timer = setTimeout(()=>{
+                fn.apply(this,arguments);
+                console.log(this);
+            },wait);
+    }
+}
+
+function throttle(fn,wait){
+    var timer = null;
+    return function(){
+        var that = this,
+            args = arguments;
+        if(!timer){
+                timer = setTimeout(() => {
+                fn.apply(this,arguments);
+                timer = null;
+            }, wait);
+        }
+    }
+  
+}
+
+const childPage = window.open('./test.html', 'child')
+
+var i=0;
+var button = document.getElementById("big-button");
+
+button.onclick = ()=>{
+    childPage.postMessage('hello', '*');
+    localStorage.setItem(i,i);
+    i++;
+}
+var myname =  document.getElementById("name-input");
+//name.value = "xxx";
+console.log(myname.value);
+
+myname.addEventListener("input",debounce(function(){
+   console.log(myname.value);
+},1000));
+window.addEventListener('scroll',throttle(function(){
+    console.log(window.pageYOffset);
+},500));
+</script>
