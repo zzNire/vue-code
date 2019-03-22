@@ -135,6 +135,16 @@ module.exports = {
 }
 var mytext = require(" ");
 
+new Promise((resolve,reject)=>{
+    if(successed)
+    {
+        resolve(data);
+    }else{
+        reject(err);
+    }
+}).then((res)=>{
 
+},(err)=>{
 
+})
 

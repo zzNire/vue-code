@@ -182,6 +182,15 @@ import {myname , getHabby} from '...';;
 * every()  全为true 返回true some() 任一为true 返回true  forEach() filter() 所有ture 组成数组 map() 返回数组
 * reduce() reduceRight()
 
+###RegExp
+/ /.exex(str) 
+  * 返回第一个匹配项信息的数组
+    * matches[0] 整个模式 matches[1] 捕获组匹配的信息  
+  * / /g 多次执行 才会往下匹配
+/ /.test(str)
+  * 匹配则返回true
+
+* RegExp.$1 根据正则表达式走后一次执行的操作而变化
 ### Date
 
 

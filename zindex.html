@@ -34,8 +34,8 @@
 }
 </style>
 
-<link rel="stylesheet/less" href="./test.less" type="text/css">
-<script  src="less.min.js" ></script>
+
+
 </head>
 
 <body>
@@ -64,3 +64,14 @@
 </div>
  
 </body>
+<script>
+    window.addEventListener("message",(e)=>{
+      console.log(e);
+    });
+  
+    var send = document.getElementsByClassName("inner")[0];
+    send.addEventListener("click",()=>{
+      window.parent.postMessage("im child","*");
+    })
+    document.createDocumentFragment().append()
+  </script>

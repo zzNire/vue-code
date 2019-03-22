@@ -1,19 +1,22 @@
 <head>
-  <script> 
-  
- 
-  window.addEventListener('storage',(evt)=>{
-   console.log(1);
-   console.log(evt.newValue);
-  })
-   </script>
-   
-  
 </head>
 
 <body>
-  
+   <iframe id="my-frame" src="./zindex.html"></iframe>
+   <button id="mybutton" style="height:80px;width:80px;background-color:yellow"></button>
 </body>
 
-
-
+<script>
+      function fn(data)
+      {
+         console.log(data);
+      }
+      var child_frame = document.getElementById("my-frame");
+      console.log(child_frame);
+      document.getElementById("mybutton").onclick = ()=>{
+         child_frame.contentWindow.postMessage("hello","*");
+      }
+      window.addEventListener('message',(e)=>{
+         console.log(e.data);
+      })
+      </script>
