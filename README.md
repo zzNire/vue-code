@@ -136,24 +136,105 @@ import {myname , getHabby} from '...';;
 * boolean 
 * number 
 * string 
-* object -> 对象或null
+* object -> 对象或null **null表示一个空指针对象**
 
 ### Number
-* Infinity
+* Infinity 
+  * isInfinity(num)
 * NaN 
-  * NaN不等于任何数 包括自身
+  * **NaN不等于任何数,包括自身**
+  * isNaN(num) 会进行隐式转换 ToNumber
+* 数值转换 
+  * Number()
   * parseInt(" ",10);
-  * parseFloat(" ") ;
+    * 如果第一个字符不是数值或是-，返回NaN
+    * "" -> NaN,不同于Number()
+    * 会解析开头的数字，忽略后面的其他符号，
+
+  * parseFloat(" ") ; 只解析十进制
+  * 转换规则 同 ToNumber
+    * undefined ->  NaN
+    * null ->       0
+    * '123' ->      123
+    * 'd12' ->      NaN
+    * boolean ->    0|1
+    * '' ->         0
+
 
 ### String 
 * num.toString(10);
-* String(num);
+* String(num); null，undefined 没有toStirng方法
 * slice() substr() substring()  start end 截取
 * concat() 
 * charAt() charCodeAt()
 * indexOf() lastIndexOf()
 * search() 第一次出现位置 replace() match() 返回数组
 * split()
+
+### Boolean
+| type | true | false |
+| --- | --- | --- |
+| Number | 任何大于0的数 | 0和NaN |
+| String | 任何非空字符串 | "" |
+| Object | 任何对象，包括{},[] | null |
+| undefined | | undefined |
+
+
+### 布尔操作符
+
+#### 且 &&
+* 第一个是对象，返回第二个操作数
+* 第二个是对象，
+  * 当第一个为true，返回第二个
+  * 否则，返回第一个操作数
+* 两个都是对象，返回第二个
+* 有一个是null，undefined，NaN，直接返回该值
+
+#### 或 ||
+* 第一个是对象，返回第一个
+* 第一个是false，返回第二个
+* 两个都是对象，返回第一个
+* 都是null，undefined，NaN，直接返回该值
+
+### 乘法
+* NaN * 任意 = NaN
+* Infinity * 非0 = Infinity | -Infinity
+* Infinity * 0 = NaN
+* Infinity * Infinity = Infinity
+* 不是数值，则Number()
+
+### 除法
+* 含有NaN = NaN
+* 0 / 0 = NaN
+* 非0 / 0 = Infinity
+* Infinity / Infinity = NaN
+* Infinity / 非0 = Infinity | -Infinity
+* 任意 /Infinity = 0
+
+### 加法
+* Infinity + Infinity = Infinity
+* -Infinity + -Infinity = -Infinity
+* Infinity + -Infinity = NaN
+* +0 + +0 = +0
+* -0 + -0 = -0
+* +0 + -0 = +0
+* 数字 + undefine = 数字
+* 数字 + null = 数字
+* 数字 + 其他 = 字符串
+
+### 减法
+* Infinity - Infinity = NaN
+* -Infinity - -Infinity = NaN
+* Infinity - -Infinity = Infinity
+* -Infinity - Infinity = -Infinity
+* +0 - +0 = +0
+* -0 - -0 = +0
+* +0 - -0 = -0
+* -0 - +0 = -0
+
+###关系运算
+* 字符串比较看第一个字符编码值，相同再比较下一位
+* 其他都转成数值或字符串进行比较
 
 ### Object
 * constructor  返回构造函数 创建当前对象的函数
@@ -167,6 +248,12 @@ import {myname , getHabby} from '...';;
   * length 参数数量
   * arguments[0] 调用参数
   * 修改arguments 会同时修改传递的参数
+  * arguments只是和数组类似，并不是真正的数组
+  > 转化为数组 
+  
+  ```
+  Array.prototype.slice.call(arguments);
+  ```
 
 ### 区分String对象 string基本数据类型
 
