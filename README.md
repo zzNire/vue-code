@@ -264,7 +264,10 @@ import {myname , getHabby} from '...';;
 * isArray() toString() valueOf() join()
 * push() pop() shift() unshift()
 * reverse() 转置 sort()  return<0 a在前
-* concat() 连接 slice() 起始 和 结束位置 不包括结束位置 splice()  删除起始位置 长度 替换  
+* 数组操作 
+  * concat()  连接数字或数组 ，**返回新数组**
+  * slice() 起始 和 结束位置 不包括结束位置  **返回新数组**
+  * splice()  删除起始位置 长度 替换  **修改原数组，返回被删除部分的数组**
 * indexOf() lasetIndexOf()
 * every()  全为true 返回true some() 任一为true 返回true  forEach() filter() 所有ture 组成数组 map() 返回数组
 * reduce() reduceRight()

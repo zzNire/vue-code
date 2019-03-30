@@ -84,7 +84,7 @@ A.prototype.isPrototypeOf(B)  a是b的原型吗
 通过圣杯模式可以把一个家族中的各个对象的干扰给截断，以使每个对象在对父类有继承的情况下相互独立，以免各个对象在试图修改自身(特别是自身原型)的属性时影响到其他对象。
 
 主要看例子里的。
-```
+```js
 Father.prototype.lastname = 'C';
 Father.prototype.fortune = 1000000;
 function Father () {

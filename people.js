@@ -38,6 +38,11 @@ Women.prototype = {
     }
 };
 
+/*------------------------------------*/
+/*                继承                */ 
+/*------------------------------------*/
+
+// 原型链继承
 //SubType.prototype 是 SuperType 的一个实例，在上面定义的方法不影响 SuperType.prototype
 function SuperType(){
     this.property = true;
@@ -63,6 +68,7 @@ SubType.prototype.getSuperValue = function(){
 
 var instance = new SubType();
 instance.getSubValue();
+instance.getSuperValue();
 
 //借助构造函数
 

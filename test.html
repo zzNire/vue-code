@@ -1,10 +1,68 @@
 <head>
+      <script src="./sort.js"></script>
+      <style>
+            body{
+                  margin: 0px;
+            }
+            .a{
+                  height: 100px;
+                  width:100px;
+                  
+                  position: absolute;
+                  top:200px;
+                  background: red;
+                 margin: 10px;
+                  
+            }
+            .outer{
+                  background: yellow;
+                  height: 200px;
+                 
+                  
+            }
+            .outer::after{
+                  content: "";
+                  clear: both;
+                  display: block;
+                  
+            }
+            .inner{
+                  float: left;
+                  height: 100px;
+                  width:100px;
+                  margin: 10px;
+                  border: 1px solid;
+            }
+            #input{
+
+            }
+      </style>
 </head>
 
+
 <body>
+      <div class="a"></div>
+      <div class="outer">
+                  <div class="inner">1</div>
+                  <div class="inner">2</div>
+                  <div class="inner">3</div>
   
+      </div>
+      <input id='input' >
+      <div id='output'></div>
+      <html>
+<head>
+
+<span style="display:none; background-color:Blue">隐藏区域</span><span style=" background-color:Green">显示区域</span><br />
+<span style="visibility:hidden; background-color:Blue">隐藏区域</span><span style="background-color:Green">显示区域</span>
+
 </body>
 
-<script src="./debug.js">
-    
-      </script>
+<script>
+      var input = document.getElementById("input");
+      var output = document.getElementById('output');
+      input.oninput = function(e){
+            console.log(input.value);
+            output.innerHTML = input.value;
+      }
+</script>
