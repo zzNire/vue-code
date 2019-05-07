@@ -43,6 +43,7 @@ function chooseSort(arr){
     return arr;
 }
 
+
 /* 插入排序
 将第一位当作新数组，不断地往里面插入新数字
 时间复杂度 n^2 空间复杂度 1
@@ -62,11 +63,30 @@ function insertSort(arr){
     return arr;
 }
 
+
+function quickSort(arr){
+    var left = [];
+    var right = [];
+    if(arr.length === 1) return arr;
+    for(let i=1;i<arr.length;i++){
+       arr[i]<arr[0]?left.push(arr[i]):right.push(arr[i]);
+    }
+    var left = left.length?quickSort(left):[];
+    var right = right.length?quickSort(right):[];
+    return left.concat(arr[0],right);
+
+}
 /* 快速排序 ***
 1. 大的放右边，小的放左边 
 2.时间复杂度 nlogn 空间复杂度 logn
 不稳定
 */ 
+function f(a){
+    return a.length <= 1 ? a: f(a.filter(x=>x<a[0])).concat(a.filter(x=>x==a[0])).concat(f(a.filter(x=>x>a[0])));
+}
+
+//
+
 function quickSort(arr){
     if(arr.length <= 1){
         return arr;
@@ -87,6 +107,57 @@ function quickSort(arr){
     return left.concat(flag,right);
 }
 
+
+//从大到小
+function departion(arr,start,end){
+    if(start > end){
+        return ;
+    }
+    var i = start;
+    var j = end;
+    var part = arr[start];
+    while(i!=j){
+        while(arr[j]<=part && i<j){
+            j--;
+        }
+        while(arr[i]>=part && i<j){
+            i++
+        }
+        [arr[i],arr[j]] = [arr[j],arr[i]];
+    }
+    arr[start] = arr[i];
+    arr[i] = part;
+    return i;
+}
+
+function quickSort(arr,start=0,end){
+    end = end || arr.length-1;
+    if(start<end){
+        let part = departion(arr,start,end);
+        if(!part) return;
+        quickSort(arr,start,part-1);
+        quickSort(arr,part+1,end);
+    }
+    return arr;
+    
+}
+
+function findMax(arr,rank){
+    let start = 0,end=arr.length-1;
+    rank--;
+    while(start <= end){
+        let part = departion(arr,start,end);
+        if(part === rank)
+            return arr[part];
+        if(part>rank){
+            end = part -1;  
+        }
+        if(part<rank){
+            start = part + 1;
+        }
+    }
+    
+}
 /* 希尔排序
 设置不同的步长进行分组，组内进行插入排序
 时间复杂度 nlogn 空间复杂度 1

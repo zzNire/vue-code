@@ -31,10 +31,22 @@
     * 构造函数 创建 实例属性
     * 原型模式 创建 共享属性  
 
-* Object.create(对象);
+* Object.create(原型对象，添加的属性（属性描述对象）);
+    * 添加的属性,如果不显式声明，默认是不可遍历的
+    * 传入的原型对象，作为新生成对象的原型
     * 通过一个已存在的对象创建另一个相似对象，不用写构造函数
     * Object.create()
     * 引用属性会被共享
+
+```js
+const obj = Object.create({}, {
+    p:{
+        value: 42,
+        enumerable: true
+    }
+});
+Object.values(obj)
+```
 
 ### 原型 构造函数 实例 
 
@@ -54,10 +66,17 @@
 
 * 构造函数.prototype === 原型
 
-### 继承
+### [继承](https://github.com/mqyqingfeng/Blog/issues/16)
 
-* 原型链
+#### 原型链  不用
+a的实例原型都指向同一个b实例，
+* 如果a的实例中没有的属性会在b的实例中寻找
+* a的实例通过新建属性来覆盖b的实例中的同名属性
+* 操作a实例中不存在的引用类型时会指向同一个b实例中的该引用类型
 
+存在问题
+* 原型中的引用类型会被共享
+* 不能再创建子类时给父类传参
 
 对象a.prototype = new 对象b   a继承b
 
@@ -66,22 +85,80 @@ A instanceof B  a是b的实例吗
 A.prototype.isPrototypeOf(B)  a是b的原型吗
 
 
-* 借用构造函数
-    并没有改变原型链，只是调用了超类中的语句
+#### 借用构造函数 不用
+* 每个对象都有自己的属性 不共享 
+* 并没有改变原型链，只是调用了超类中的语句
 
-* 组合继承
+
+问题
+* 重复生成方法和属性 
+* 因为没有改变原型链，所以也无法访问父类原型上的方法
+
+#### 组合继承  **最常用**
     * 原型链 继承 原型属性和方法
     * 使用构造函数继承 实例属性
 
-* 原型式继承
-    
+#### Object.create()
+* 第一个参数是实例,**不能包含Symbol属性**
+* 第二个参数是属性描述,与defineProperties的第二个参数相同
+* 生成的实例 `__proto__` 指向第一个参数指定的对象
+```js
+{
+    sex:{
+        value:'boy'
+    }
+}
+```
 
-* 寄生式继承
+#### 原型式继承  ES5 Object.create 
+通过一个已存在的实例，来快速生成差不多的实例,
 
-* class A extends B
+共享引用类型
+
+将传入的对象作为创建的对象的原型。
+```js
+function createObj(o) {
+    function F(){}
+    F.prototype = o;
+    return new F();
+}
+```
+#### 寄生式继承 Object.create()
+通过一个已存在的实例，来快速生成差不多的实例，并添加方法和属性
+```js
+function createObj (o) {
+    var clone = Object.create(o);
+    clone.sayName = function () {
+        console.log('hi');
+    }
+    return clone;
+}
+```
+跟借用构造函数模式一样，每次创建对象都会创建一遍方法。
+
+
+#### 组合寄生继承
+不使用 Child.prototype = new Parent() ，而是间接的让 Child.prototype 访问到 Parent.prototype 
+
+将组合模式的`Son.prototype = new Father();`改为
+```js
+var prototype = Object.create(Father.prototype);
+prototype.constructor = Son;
+Son.prototype = prototype;
+
+//或者
+function f(){}
+f.prototype = Father.prototype;
+Son.prototype = new f();
+```
+
+* 相比于组合模式，减少父类的调用次数
+#### class A extends B
  
 * 圣杯模式
 通过圣杯模式可以把一个家族中的各个对象的干扰给截断，以使每个对象在对父类有继承的情况下相互独立，以免各个对象在试图修改自身(特别是自身原型)的属性时影响到其他对象。
+* 访问部分父类的属性，只能是原型里的属性
+* 子类修改原型，不影响父类
 
 主要看例子里的。
 ```js
@@ -89,6 +166,7 @@ Father.prototype.lastname = 'C';
 Father.prototype.fortune = 1000000;
 function Father () {
     this.age = 48;
+    this.test = true;
 }
 function Son () {
     this.age = 18;
@@ -122,6 +200,7 @@ return function (targetSon, originFather) { //让目标儿子继承源头父亲
 inherit(Son, Father); //调用圣杯inherit函数
 Son.prototype.lastname = 'X';
 var son = new Son();
+var son2 = new Son();
 var father = new Father();
 console.log(son.lastname); //控制台显示x，败家儿子成功认贼作父
 console.log(father.lastname); /* 控制台显示c，父亲自己的姓并没有因为败家儿子

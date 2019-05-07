@@ -84,22 +84,54 @@ function SubType(){
 var nire = new SubType();
 
 //组合继承
+function Father(name){
+	this.name = name;
+	this.color = [1,2,3];
+}
 
+Son.prototype.sayAge = function(){
+    console.log(this.age);
+}
+function Son(name,age){
+	this.age = age;
+	Father.call(this,name);
+}
+
+Son.prototype = new Father();
+Son.prototype.sayAge = function(){
+    console.log(this.age);
+}
+var son1 = new Son('nire',11);
+var son2 = new Son('jack',13);
+
+son1.sayName() // 'nire'
+son1.__proto__ = Son.prototype // true
+son1.color.push(5) // [1,2,3,5]
+son2.color // [1,2,3]
 
 //原型式继承
 var Person = {
     name :"jack",
     friends:["a","b"]
 }
+function object (o){
+    function f(){};
+    f.prototype = 0;
+    return new f();
+}
 
+var x  = object(Person)
 var anotherperson = Object.create(Person,{
     name:{
         value :"nire"
     }
 })
+
 //寄生?????
 function createPerson (SuperType){
-    var clone = Object.create(SuperType);
+  //  var clone = Object.create(SuperType);
+   var clone  = object(SuperType);
+   clone.age = 12;
     return clone;
 }
 
@@ -110,6 +142,8 @@ function createPerson(SubType,SuperType){
     SubType.prototype = prototype;
 }
 
+createPerson(Son,Father);
+var son = new Son();
 
 //圣杯模式
 Father.prototype.lastname = 'C';
@@ -155,6 +189,7 @@ console.log(father.lastname); /* 控制台显示c，父亲自己的姓并没有�
                                  通过改姓来认贼作父的惨痛事实而改变 */
 console.log(son.constructor); //控制台显示儿子自己的构造函数(本质)
 console.log(son.gene); //控制台显示儿子自己的生父
+
 
 //闭包
 
@@ -597,4 +632,30 @@ function getNum(n,s,l){
          
     }
     console.log(num);
+}
+
+
+function Parent (name) {
+    this.name = name;
+    this.colors = ['red', 'blue', 'green'];
+}
+
+Parent.prototype.getName = function () {
+    console.log(this.name)
+}
+
+function Child (name, age) {
+    Parent.call(this, name);
+    this.age = age;
+}
+
+function inherit(father,child){
+    function f(){};
+    return function(){
+        f.prototype = father.property;
+        let prototype =  new f();
+        child.prototype = prototype;
+        prototype.constructor = child;
+    }
+    
 }

@@ -1,150 +1,61 @@
+var double = n => n+2;
+var pow = n => n*n;
+var reverseInt = n => n.toString().split('').reverse().join('');
 
+var fun = new WeakMap();
+fun.set(double,double);
+fun.set(pow,pow);
+fun.set(reverseInt,reverseInt);
 
-
-
-console.log("===========================");
-var myname = new String("nire");
-var person = new Object();
-
-console.log(myname instanceof String );
-console.log(person instanceof Object );
-
-var oStringObject = new String("hello world"); 
-console.log(oStringObject instanceof String); 
-
-var name = "nire";
-console.log(typeof name);
-console.log(typeof myname);
-
-console.log(name);
-console.log(myname);
-
-/*==================
-        作用域
-=====================*/
-function buildUrl(){
-    var qs = "?debug=true";
-
-    with (location){
-        var url = href + qs;
-    }
-
-    return url;
-}
-
-console.log(buildUrl());
-
-/*
-        Date
-
-*/
-
-var begin = new Date();
-
-setTimeout(()=>{
-    var end = new Date();
-    console.log(end-begin);
-},1000)
-
-
-/*
-    Function
-*/
-
-//函数返回函数
-function compareArg(arg_name)
-{
-    
-    return function compare(obj1,obj2){
-        var value1 = obj1[arg_name];
-        var value2 = obj2[arg_name];
-        return value1 - value2;
-    }
-}
-
-var students = [
-    {   name:'niren',
-        age:22
-    },
-    {
-        name:'jacky',
-        age:18
-    }
-]
-students.sort(compareArg('age'))
-console.log(students);
-
-//arguments.callee
-function factorial(num){
-    if(num === 1)
-        return 1;
-    else{
-        return num * arguments.callee(num-1);
-    }
-    
-}
-console.log(factorial(5));
-
-//apply
-function sum(num1,num2){
-    return num1 + num2;
-}
-
-function callSum(num1,num2){
-    console.log(arguments);
-    return sum.apply(this,arguments);
-}
-
-function callSum2(num1,num2){
-    return sum(num1,num2);
-}
-console.log(callSum(1,2));
-console.log(callSum2(1,2));
-
-function sss(a)
-{
-    var num = {};
-	a.forEach(i=>{
-      if(!num.hasOwnProperty(i))
-      {
-          num[i] = 1;
-      }
-        
+var pipe = function(value){
+    var func = [];
+    var x = new Proxy({},{
+        get(target,key){
+            console.log(key);
+            if(key!=='get')
+            {
+                func.push(window[key]);
+                return x;
+            }
+            return func.reduce((sum,val)=>{
+                return val(sum);
+            },value)
+        }
     })
-    return Object.keys(num);
+    return x;
 }
 
-console.log(sss(['toString','toString','valueOf']));
+console.log(pipe(3).double.pow.reverseInt.get);
 
-
-console.log("------------------------------");
-var Person = function (){
-    name:"nirean";
-}
-
-var x = 1;
-module.exports = x;
-module.exports.x = x;
-
-var example = require ("");
-
-var text = "hello";
-module.exports = {
-    text:text,
-    getText:function(){},
-}
-var mytext = require(" ");
-
-new Promise((resolve,reject)=>{
-    if(successed)
-    {
-        resolve(data);
-    }else{
-        reject(err);
-    }
-}).then((res)=>{
-
-},(err)=>{
-
+const dom = new Proxy({},{
+    get(target,key){
+        return function(attrs,...args){
+            var el = document.createElement(key);
+            for(let attrkey of Object.getOwnPropertyNames(attrs)){
+                el.setAttribute(attrkey,attrs[attrkey])}
+            for(let arg of args){
+                if(typeof arg === 'string'){
+                    arg = document.createTextNode(arg);
+                }
+                el.appendChild(arg);
+                
+            }
+            
+            return el;
+        }
+    },
+    
 })
 
+const el = dom.div({},
+    'Hello, my name is ',
+    dom.a({href: '//example.com'}, 'Mark'),
+    '. I like:',
+    dom.ul({},
+      dom.li({}, 'The web'),
+      dom.li({}, 'Food'),
+      dom.li({}, '…actually that\'s it')
+    )
+  );
+  
+  document.body.appendChild(el);
