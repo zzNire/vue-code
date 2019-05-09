@@ -1,3 +1,4 @@
+// es5实现装饰者模式
 class Coffee1{
     constructor(){
         this.price = 5;
@@ -56,6 +57,7 @@ var myCoffee = new buyCoffee(new Coffee1(),water);
 console.log(myCoffee.getPrice());
 
 
+//ES7 decorator 实现
 
 //@fly(true)
 class Man{
@@ -106,7 +108,7 @@ function fly(canFly){
     }
 }
 
-
+//AOP
 Function.prototype.before = function(func){
     var that = this;
     console.log(this);
@@ -116,6 +118,7 @@ Function.prototype.before = function(func){
         that.apply(this,args);
     }
 }
+
 
 var car = {
     drive: function() {
@@ -129,7 +132,7 @@ var autopilotDecorator = function() {
 
 car.drive.before(autopilotDecorator)();
 
-
+//ES5 实现装饰者模式
 class Man{
     constructor(def = 2,atk = 3,hp = 3){
       this.init(def,atk,hp);

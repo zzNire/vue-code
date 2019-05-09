@@ -343,6 +343,11 @@ delete obj.name //false
 * g 全局匹配
 * i 不区分大小写
 
+* \s 空白字符
+* \w 单词字符
+* \d 数字字符
+* \n \t 
+
 ### Date
 
 

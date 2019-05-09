@@ -1,3 +1,14 @@
+/*
+发布---订阅模式又叫观察者模式，它定义了对象间的一种一对多的关系，
+让多个观察者对象同时监听某一个主题对象，当一个对象发生改变时，
+所有依赖于它的对象都将得到通知。
+
+1.支持简单的广播通信，当对象状态发生改变时，会自动通知已经订阅过的对象。
+2.发布者与订阅者耦合性降低，发布者只管发布一条消息出去，
+它不关心这条消息如何被订阅者使用，同时，订阅者只监听发布者的事件名，
+只要发布者的事件名不变，它不管发布者如何改变；
+*/
+
 class player{
     constructor(){
         this.watcher = {};
@@ -53,4 +64,4 @@ document.getElementsByTagName('body')[0].addEventListener('click',()=>{
     music_player.push('play',1);
 })
 
-document.que
+document.querySelector
