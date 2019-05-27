@@ -46,4 +46,42 @@ let RomanNumerals = {
     }
 }
 
+function getInput(){
+    var data = [[1,2,3],[4,5,6],[7,8,9],[,0,,]];
+    var input_data = {};
+    data.forEach((v,x)=>{
+        v.forEach((u,y)=>{
+            input_data[u] = [];
+            input_data[u].push(u);
+            if(data[x+1]&&data[x+1][y]!==undefined) input_data[u].push(data[x+1][y]);
+            if(data[x-1]&&data[x-1][y]!==undefined) input_data[u].push(data[x-1][y]);
+            if(data[x]&&data[x][y+1]!==undefined) input_data[u].push(data[x][y+1]);
+            if(data[x]&&data[x][y-1]!==undefined) input_data[u].push(data[x][y-1]);
+            
+        })
+    })
+    return input_data;
+}
 
+function getInput(){
+    var data = [['1','2','3'],['4','5','6'],['7','8','9'],[,'0',,]];
+    var input_data = {};
+    data.forEach((v,x)=>{
+        v.forEach((u,y)=>{
+            input_data[u] = [];
+            input_data[u].push(u);
+            if(data[x+1]&&data[x+1][y]!==undefined) input_data[u].push(data[x+1][y]);
+            if(data[x-1]&&data[x-1][y]!==undefined) input_data[u].push(data[x-1][y]);
+            if(data[x]&&data[x][y+1]!==undefined) input_data[u].push(data[x][y+1]);
+            if(data[x]&&data[x][y-1]!==undefined) input_data[u].push(data[x][y-1]);
+            
+        })
+    })
+    return input_data;
+}
+
+function getPINs(observed) {
+    var data = getInput();
+    var input = observed.split('').map(v=>data[v]);
+    return input.reduce((pre,next)=>[].concat.apply([],pre.map(m=>next.map(n=>m+n))))
+}

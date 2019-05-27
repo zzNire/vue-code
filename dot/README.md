@@ -283,7 +283,7 @@ delete obj.name //false
   ```
 
 ### 区分String对象 string基本数据类型
-* concat 
+* concat  返回新数组
 * split
 * slice(起始，结束) sunstr(起始，个数) substring(起始，结束)
 * charAt charCodeAt ascll码
