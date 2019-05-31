@@ -1,5 +1,3 @@
-
-
 let RomanNumerals = {
     numerals: [
         ['I', 'V'],
@@ -39,42 +37,51 @@ let RomanNumerals = {
         'D': 500,
         'M': 1000,
     },
-    fromRoman(arr){
-        return arr.split('').reduce((sum,val,index)=>
-        this.fromnumberals[val]<this.fromnumberals[arr[index+1]] ? sum-this.fromnumberals[val]:sum+this.fromnumberals[val]
-        ,0)
+    fromRoman(arr) {
+        return arr.split('').reduce((sum, val, index) =>
+            this.fromnumberals[val] < this.fromnumberals[arr[index + 1]] ? sum - this.fromnumberals[val] : sum + this.fromnumberals[val], 0)
     }
 }
 
-function getInput(){
-    var data = [[1,2,3],[4,5,6],[7,8,9],[,0,,]];
+function getInput() {
+    var data = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+        [, 0, , ]
+    ];
     var input_data = {};
-    data.forEach((v,x)=>{
-        v.forEach((u,y)=>{
+    data.forEach((v, x) => {
+        v.forEach((u, y) => {
             input_data[u] = [];
             input_data[u].push(u);
-            if(data[x+1]&&data[x+1][y]!==undefined) input_data[u].push(data[x+1][y]);
-            if(data[x-1]&&data[x-1][y]!==undefined) input_data[u].push(data[x-1][y]);
-            if(data[x]&&data[x][y+1]!==undefined) input_data[u].push(data[x][y+1]);
-            if(data[x]&&data[x][y-1]!==undefined) input_data[u].push(data[x][y-1]);
-            
+            if (data[x + 1] && data[x + 1][y] !== undefined) input_data[u].push(data[x + 1][y]);
+            if (data[x - 1] && data[x - 1][y] !== undefined) input_data[u].push(data[x - 1][y]);
+            if (data[x] && data[x][y + 1] !== undefined) input_data[u].push(data[x][y + 1]);
+            if (data[x] && data[x][y - 1] !== undefined) input_data[u].push(data[x][y - 1]);
+
         })
     })
     return input_data;
 }
 
-function getInput(){
-    var data = [['1','2','3'],['4','5','6'],['7','8','9'],[,'0',,]];
+function getInput() {
+    var data = [
+        ['1', '2', '3'],
+        ['4', '5', '6'],
+        ['7', '8', '9'],
+        [, '0', , ]
+    ];
     var input_data = {};
-    data.forEach((v,x)=>{
-        v.forEach((u,y)=>{
+    data.forEach((v, x) => {
+        v.forEach((u, y) => {
             input_data[u] = [];
             input_data[u].push(u);
-            if(data[x+1]&&data[x+1][y]!==undefined) input_data[u].push(data[x+1][y]);
-            if(data[x-1]&&data[x-1][y]!==undefined) input_data[u].push(data[x-1][y]);
-            if(data[x]&&data[x][y+1]!==undefined) input_data[u].push(data[x][y+1]);
-            if(data[x]&&data[x][y-1]!==undefined) input_data[u].push(data[x][y-1]);
-            
+            if (data[x + 1] && data[x + 1][y] !== undefined) input_data[u].push(data[x + 1][y]);
+            if (data[x - 1] && data[x - 1][y] !== undefined) input_data[u].push(data[x - 1][y]);
+            if (data[x] && data[x][y + 1] !== undefined) input_data[u].push(data[x][y + 1]);
+            if (data[x] && data[x][y - 1] !== undefined) input_data[u].push(data[x][y - 1]);
+
         })
     })
     return input_data;
@@ -82,6 +89,42 @@ function getInput(){
 
 function getPINs(observed) {
     var data = getInput();
-    var input = observed.split('').map(v=>data[v]);
-    return input.reduce((pre,next)=>[].concat.apply([],pre.map(m=>next.map(n=>m+n))))
+    var input = observed.split('').map(v => data[v]);
+    return input.reduce((pre, next) => [].concat.apply([], pre.map(m => next.map(n => m + n))))
 }
+
+
+function getWinning(max) {
+    // Create possible user numbers array 
+    var possUserNumbs = [];
+    for (var i = 1; i < (max + 1); i++) {
+        possUserNumbs.push(i);
+    }
+    // Quick pick winning user numbers array 
+    var userWinningNumbs = [];
+    for (var j = 0; j < 5; j++) {
+        userWinningNumbs.push(getRandomWinningNumbers());
+    }
+    // Gets random numbers and removes them after use
+    function getRandomWinningNumbers() {
+        var randomIndex = Math.floor(Math.random() * possUserNumbs.length);
+        return possUserNumbs.splice(randomIndex, 1)[0];
+    }
+    // Reorder from smallest to largest
+    userWinningNumbs.sort(function (a, b) {
+        return a - b;
+    });
+    return userWinningNumbs;
+}
+
+function getMega(megaMax) {
+    // Create possible user mega numbers array
+    var possMegaUserNumbs = [];
+    for (var i = 1; i < (megaMax + 1); i++) {
+        possMegaUserNumbs.push(i);
+    }
+
+    var randomIndex = Math.floor(Math.random() * possMegaUserNumbs.length);
+    return possMegaUserNumbs.splice(randomIndex, 1)[0];
+}
+// view-source:http://graphics.latimes.com/powerball-simulator/
