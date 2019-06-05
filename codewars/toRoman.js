@@ -128,3 +128,22 @@ function getMega(megaMax) {
     return possMegaUserNumbs.splice(randomIndex, 1)[0];
 }
 // view-source:http://graphics.latimes.com/powerball-simulator/
+
+
+
+var baseOption = {x:1};
+
+function baseCompiler(option){
+    console.log(option);
+}
+
+function createCompiler(baseOption){
+    return function compilerFn(baseCompiler){
+        return function compiler(){
+            baseCompiler.call(this,baseOption);
+        }
+    }
+}
+
+//
+var compiler = createCompiler(baseOption)(baseCompiler)();

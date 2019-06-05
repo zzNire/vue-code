@@ -171,7 +171,15 @@ import {myname , getHabby} from '...';;
 * concat()  返回新字符串 不改变原字符串 
 * charAt() charCodeAt()
 * indexOf() lastIndexOf()
-* search() 第一次出现位置 replace() match() 返回数组
+* search() 第一次出现位置 
+* replace()
+  * match	匹配的子串。（对应于上述的$&。）
+  * p1,p2, ...	
+    假如replace()方法的第一个参数是一个RegExp 对象，则代表第n个括号匹配的字符串。（对应于上述的$1，$2等。）例如，如果是用 /(\a+)(\b+)/ 这个来匹配，p1 就是匹配的 \a+，p2 就是匹配的 \b+。
+  * offset	
+    匹配到的子字符串在原字符串中的偏移量。（比如，如果原字符串是 'abcd'，匹配到的子字符串是 'bc'，那么这个参数将会是 1）
+  * string	被匹配的原字符串。
+* match() 返回数组
 * split()
 
 ### Boolean
@@ -331,10 +339,17 @@ delete obj.name //false
 
 * RegExp.$1 根据正则表达式走后一次执行的操作而变化
 
+* (?=pattern) 零宽正向先行断言(zero-width positive lookahead assertion) 
+* (?!pattern) 零宽负向先行断言(zero-width negative lookahead assertion) 
+* (?<=pattern) 零宽正向后行断言(zero-width positive lookbehind assertion)
+从右往左  
+* (?<!pattern) 零宽负向后行断言(zero-width negative lookbehind assertion) 
+
 
 * ^ $ 开头 结尾
-* \+ \* ?
+* \+ \* ? 
 * ? 如果紧跟在任何量词 *、 +、? 或 {} 的后面，将会使量词变为**非贪婪**的（匹配尽量少的字符），和缺省使用的贪婪模式（匹配尽可能多的字符）正好相反。
+* ?: 不捕获此匹配组
 * [xyz] x或y或z
 * [^xyz] 不是x且不是y且不是z
 * {n,m} n~m

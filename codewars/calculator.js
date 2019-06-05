@@ -53,3 +53,25 @@ const Calculator  = function(){
     }
 
 }
+
+
+function getUrlParam(sUrl, sKey) {
+    var keys = sUrl.match(/(?<=[\?\&])(\w+)/g);
+    var result = {};
+    //keys = new Set(keys);
+    for(var key of keys){
+        var values = sUrl.match(new RegExp(`(?<=${key}\\=)([0-9a-zA-Z%]+)`,'g')).map(x=>x-0);
+        if(values) {
+             if(values.length === 1) values = values[0];
+             result[key] = values;
+        }else{
+            result[key] = '';
+        }  
+    }
+    console.log(result);
+    if(sKey){
+        return result[sKey]?result[sKey]:'';
+    }else{
+        return result; 
+    }     
+}
