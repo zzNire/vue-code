@@ -173,7 +173,9 @@ import {myname , getHabby} from '...';;
 * indexOf() lastIndexOf()
 * search() 第一次出现位置 
 * replace()
-  * match	匹配的子串。（对应于上述的$&。）
+  * match	匹配的子串。（对应于上述的$&。） 
+  > 如果 正则表达式 带g，那么会匹配全部，返回一个数组，但是不会有捕获组
+  * matchAll 捕获全部，返回一个遍历器，带捕获组
   * p1,p2, ...	
     假如replace()方法的第一个参数是一个RegExp 对象，则代表第n个括号匹配的字符串。（对应于上述的$1，$2等。）例如，如果是用 /(\a+)(\b+)/ 这个来匹配，p1 就是匹配的 \a+，p2 就是匹配的 \b+。
   * offset	
@@ -293,7 +295,7 @@ delete obj.name //false
 ### 区分String对象 string基本数据类型
 * concat  返回新数组
 * split
-* slice(起始，结束) sunstr(起始，个数) substring(起始，结束)
+* slice(起始，结束) substr(起始，个数) substring(起始，结束)
 * charAt charCodeAt ascll码
 * indexOf lastIndexOf
 * trim 去除字符串中的**首尾**空格和换行
@@ -341,6 +343,7 @@ delete obj.name //false
 
 * (?=pattern) 零宽正向先行断言(zero-width positive lookahead assertion) 
 * (?!pattern) 零宽负向先行断言(zero-width negative lookahead assertion) 
+
 * (?<=pattern) 零宽正向后行断言(zero-width positive lookbehind assertion)
 从右往左  
 * (?<!pattern) 零宽负向后行断言(zero-width negative lookbehind assertion) 

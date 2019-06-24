@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>    
+</body>
+
+<script src="./vue.js"></script>
+<script>
+let layout = {
+  template:`<div class='layout'>
+      <header><slot name='header'></slot></header>
+      <main><slot name='main'></slot></main>
+      <footer><slot name='footer'></slot></footer>
+    </div>`
+}
+
+let vm = new Vue({
+  el:'#app',
+  template: `
+    <layout>
+      <template v-slot:header>
+        <h1>{{title}}</h1>  
+      </template>
+      <template v-slot:main>
+        <p>{{msg}}</p>  
+      </template>
+      <template v-slot:footer>
+        <p>{{desc}}</p>  
+      </template>
+    </layout>
+  `,
+  data() {
+    return {
+      title:'标题',
+      msg:'内容',
+      desc:'信息',
+    }
+  },
+  components:{
+    layout,
+  }
+
+})
+</script>
+</html>
