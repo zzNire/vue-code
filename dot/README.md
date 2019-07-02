@@ -168,7 +168,7 @@ import {myname , getHabby} from '...';;
 * num.toString(10);
 * String(num); null，undefined 没有toStirng方法
 * slice(start,end) substring(start,end)  substr(start,length)  截取
-* concat()  返回新字符串 不改变原字符串 
+* concat()  **返回新字符串 不改变原字符串**
 * charAt() charCodeAt()
 * indexOf() lastIndexOf()
 * search() 第一次出现位置 
@@ -316,7 +316,7 @@ delete obj.name //false
 * 数组操作 
   * concat()  连接数字或数组 ，**返回新数组，不修改原数组** (参数可以是参数序列，也可以是数组)
     * `a.concat(1,2,3,[1,2,3]) // [1,2,3,1,2,3]`
-  * slice() 起始 和 结束位置 不包括结束位置  **返回新数组,不修改原数组**
+  * slice() 起始 和 结束位置 不包括结束位置  **返回新数组,不修改原数组**  只有一个参数时，为 起始位置到末尾
   * splice()  删除起始位置 长度 替换的**参数列表**  **修改原数组，返回被删除部分的数组**
 * indexOf() lasetIndexOf()`
 * 迭代方法
