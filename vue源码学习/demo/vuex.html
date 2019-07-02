@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>    
+</body>
+
+<script src="./vue.js"></script>
+<script src="C:\learn\vuex\dist\vuex.js"></script>
+<script src="C:\learn\vuex\dist\logger.js"></script>
+<script>
+Vue.use(Vuex);
+const moduleA = {
+    namespaced:true,
+    state:{
+        age:18,
+    },
+    mutations:{
+        incrementAge(state){
+            state.age++;
+        }
+    },
+    getters:{
+        getAge(state){
+            return state.age;
+        }
+    },
+    actions:{
+        addAge(context){
+            context.commit('incrementAge');
+        }
+    }
+}
+
+const moduleB = {
+    state:{
+        price:1000,
+    },
+    mutations:{
+        disCountPrice(state){
+            state.price*=0.9;
+        }
+    },
+    getters:{
+        getPrice(state){
+            return state.price;
+        }
+    },
+    actions:{
+        InSale(context){
+            context.commit('disCountPrice');
+        }
+    }
+}
+const store = new Vuex.Store({
+    modules:{
+        moduleA,
+        moduleB
+    },
+    state:{
+        count:0,
+    },
+    mutations:{
+        increment(state){
+            state.count++;
+        }
+    },
+    getters:{
+        getCount(state){
+            return state.count;
+        }
+    },
+    actions:{
+        addCount(context){
+            context.commit('increment');
+        },
+        increment(context){
+            return new Promise(resolve=>{
+                setTimeout(() => {
+                    context.commit('increment')
+                    resolve(context.rootState)
+                }, 1000);
+            })
+        }
+    },
+    plugins:[createVuexLogger()]
+
+})
+
+const app = new Vue({
+    el:'#app',
+    store,
+    template:`
+        <div>
+            <button @click='addCount'>add</button>
+            <p>{{$store.getters.getCount}}</p>
+            <p>count : {{count}}</p>
+            <p>moduleA age : {{Aage}}</p>
+            <button @click='incrementAge'>incrementAge</button>
+        </div>
+    `,
+    methods: {
+        addCount(){
+            this.$store._mutations.increment[0]();
+        },
+        ...Vuex.mapMutations({
+            incrementCount:'increment',
+        }),
+        ...Vuex.mapMutations('moduleA',{
+            incrementAge:'incrementAge',
+        }),
+    },
+    computed: {
+        ...Vuex.mapGetters([
+            'getCount',
+            'getPrice',
+            'moduleA/getAge'
+        ]),
+        ...Vuex.mapState([
+            'count',
+        ]),
+        ...Vuex.mapState('moduleA',{
+            Aage:'age'
+        })
+    },
+})
+
+console.log(app.$store.state);
+console.log(app.$store.state.moduleA.age);
+
+console.log(app.$store.getters.getCount);
+debugger;
+console.log(app.$store.commit('moduleA/incrementAge'));
+
+app.$store.dispatch('increment').then(data=>{
+    console.log(data.count);
+})
+console.log(app.$store.state.count);
+</script>
+</html>
