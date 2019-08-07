@@ -1,4 +1,5 @@
 //delete this liabcne
+var double = v=>v*v;
 var pow = n => n*n;
 var reverseInt = n => n.toString().split('').reverse().join('');
 
