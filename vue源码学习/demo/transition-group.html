@@ -51,7 +51,10 @@ let vm = new Vue({
   display: inline-block;
   margin-right: 10px;
 }
-.list-complete-move {
+/**
+ * 设置 move-calss
+ */
+.list-complete-move {  
   transition: all 1s;
 }
 .list-complete-enter, .list-complete-leave-to {
@@ -61,6 +64,11 @@ let vm = new Vue({
 .list-complete-enter-active {
   transition: all 1s;
 }
+
+/**
+ * 要让删除的元素先脱离文档流，旁边的元素才能过渡过来,才会更新其他元素的位置，
+ 设置移动动画
+ */
 .list-complete-leave-active {
   transition: all 1s;
   position: absolute;

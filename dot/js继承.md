@@ -137,7 +137,7 @@ function createObj (o) {
 跟借用构造函数模式一样，每次创建对象都会创建一遍方法。
 
 
-#### 组合寄生继承
+#### 组合寄生继承  这是最成熟的方法，也是现在库实现的方法
 不使用 Child.prototype = new Parent() ，而是间接的让 Child.prototype 访问到 Parent.prototype 
 
 将组合模式的`Son.prototype = new Father();`改为
@@ -145,17 +145,57 @@ function createObj (o) {
 var prototype = Object.create(Father.prototype);
 prototype.constructor = Son;
 Son.prototype = prototype;
-
-//或者
-function f(){}
-f.prototype = Father.prototype;
-Son.prototype = new f();
 ```
+
+例子
+```js
+function inheritPrototype(subType, superType){
+  var prototype = Object.create(superType.prototype); // 创建对象，创建父类原型的一个副本
+  prototype.constructor = subType;                    // 增强对象，弥补因重写原型而失去的默认的constructor 属性
+  subType.prototype = prototype;                      // 指定对象，将新创建的对象赋值给子类的原型
+}
+
+// 父类初始化实例属性和原型属性
+function SuperType(name){
+  this.name = name;
+  this.colors = ["red", "blue", "green"];
+}
+SuperType.prototype.sayName = function(){
+  alert(this.name);
+};
+
+// 借用构造函数传递增强子类实例属性（支持传参和避免篡改）
+function SubType(name, age){
+  SuperType.call(this, name);  // <- 继承 私有属性
+  this.age = age;
+}
+
+// 将父类原型指向子类
+inheritPrototype(SubType, SuperType);
+
+// 新增子类原型属性
+SubType.prototype.sayAge = function(){
+  alert(this.age);
+}
+
+var instance1 = new SubType("xyc", 23);
+var instance2 = new SubType("lxy", 23);
+
+instance1.colors.push("2"); // ["red", "blue", "green", "2"]
+instance1.colors.push("3"); // ["red", "blue", "green", "3"]
+
+```
+* 通过`SuperType.call(this, name);`这种方式，每个子类实例里都生成了 colors数组，所以每个子类实例操作colors数组时，指向的不是同一个变量。
+* `var prototype = Object.create(superType.prototype); subType.prototype = prototype; ` 避免了在SubType.prototype 上创建不必要的、多余的属性。如果使用`subType.prototype = new superType()` 那么生成的子类实例的原型上多出 `new superType()` 时生成的属性
+
+
+
+
 
 * 相比于组合模式，减少父类的调用次数
 #### class A extends B
  
-* 圣杯模式
+* 圣杯模式 感觉和寄生组合一个原理
 通过圣杯模式可以把一个家族中的各个对象的干扰给截断，以使每个对象在对父类有继承的情况下相互独立，以免各个对象在试图修改自身(特别是自身原型)的属性时影响到其他对象。
 * 访问部分父类的属性，只能是原型里的属性
 * 子类修改原型，不影响父类

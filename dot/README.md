@@ -172,18 +172,23 @@ import {myname , getHabby} from '...';;
 * charAt() charCodeAt()
 * indexOf() lastIndexOf()
 * search() 第一次出现位置 
-* replace()
+* replace(regexp/字符串,function(match,p1,p2...,offset,string){}/字符串) **返回新字符串 不改变原字符串**
   * match	匹配的子串。（对应于上述的$&。） 
   > 如果 正则表达式 带g，那么会匹配全部，返回一个数组，但是不会有捕获组
   * matchAll 捕获全部，返回一个遍历器，带捕获组
   * p1,p2, ...	
     假如replace()方法的第一个参数是一个RegExp 对象，则代表第n个括号匹配的字符串。（对应于上述的$1，$2等。）例如，如果是用 /(\a+)(\b+)/ 这个来匹配，p1 就是匹配的 \a+，p2 就是匹配的 \b+。
-  * offset	
-    匹配到的子字符串在原字符串中的偏移量。（比如，如果原字符串是 'abcd'，匹配到的子字符串是 'bc'，那么这个参数将会是 1）
+  * offset	匹配到的子字符串在原字符串中的偏移量。（比如，如果原字符串是 'abcd'，匹配到的子字符串是 'bc'，那么这个参数将会是 1）
   * string	被匹配的原字符串。
-* match() 返回数组
-* split()
 
+  * 对于第二个参数字符串，其中可以使用 $n 来表示第几个匹配组
+* match() 返回数组 matchAll 返回遍历器
+* match(/regexp/g) 返回所有匹配的字符串数组
+* split()
+```js
+ num.replace(/(?<=\d)(\d{3})/i,(n)=>","+n);
+num.replace(/(?<=\d)(\d{3})/g,',$1');
+```
 ### Boolean
 | type | true | false |
 | --- | --- | --- |
@@ -302,6 +307,7 @@ delete obj.name //false
 * toUpperCase toLowerCase toLocalLowerCase toLocalUpperCase
 * search(/regexp/) 返回字符串第一个匹配的索引 
 * match(/regexp/) 返回数组  第一个为整个模式匹配的字符串 后面为捕获组匹配的字符串
+* match(/regexp/g) 返回所有匹配的字符串数组
 * replace(/regexp/g(全部替换)或字符串($1),字符串或函数(匹配项，匹配的位置，原字符串，通过return来表示要替换成的字符串))
 * localCompare 比较字符
 * fromCharCode ascll码
@@ -314,7 +320,7 @@ delete obj.name //false
   * `x.push(1,2,3,[1,2,3])  // [1,2,3,[1,2,3]]`
 * reverse() 转置 sort()  return<0 a在前
 * 数组操作 
-  * concat()  连接数字或数组 ，**返回新数组，不修改原数组** (参数可以是参数序列，也可以是数组)
+  * **concat()**  连接数字或数组 ，**返回新数组，不修改原数组** (参数可以是参数序列，也可以是数组)
     * `a.concat(1,2,3,[1,2,3]) // [1,2,3,1,2,3]`
   * slice() 起始 和 结束位置 不包括结束位置  **返回新数组,不修改原数组**  只有一个参数时，为 起始位置到末尾
   * splice()  删除起始位置 长度 替换的**参数列表**  **修改原数组，返回被删除部分的数组**
@@ -323,7 +329,7 @@ delete obj.name //false
   * every()  全为true 返回true 
   * some() 任一为true 返回true  
   * forEach() 没有返回值
-  * filter() 所有ture 组成数组 
+  * filter() 所有ture **返回新数组**
   * map() 返回数组  **返回新数组**
 * reduce() reduceRight() （递归函数，初始值）
   * 指定了初始值，则从第一个位置开始递归
@@ -333,7 +339,7 @@ delete obj.name //false
 / /.exec(str)  同 String.match()
   * 返回第一个匹配项信息的数组
     * matches[0] 整个模式 matches[1] 捕获组匹配的信息  
-  * / /g 多次执行 才会往下匹配 
+  * / /g 多次执行 才会往下匹配   **regexp和字符串都必须为同一个变量**
     * lastindex标志下一次开始的地方
     * index 标志匹配的字符串开始的地方
 / /.test(str)
@@ -341,10 +347,10 @@ delete obj.name //false
 
 * RegExp.$1 根据正则表达式走后一次执行的操作而变化
 
-* (?=pattern) 零宽正向先行断言(zero-width positive lookahead assertion) 
+* (?=pattern) 零宽正向先行断言(zero-width positive lookahead assertion) 后面跟着的
 * (?!pattern) 零宽负向先行断言(zero-width negative lookahead assertion) 
 
-* (?<=pattern) 零宽正向后行断言(zero-width positive lookbehind assertion)
+* (?<=pattern) 零宽正向后行断言(zero-width positive lookbehind assertion) 前面跟着的
 从右往左  
 * (?<!pattern) 零宽负向后行断言(zero-width negative lookbehind assertion) 
 

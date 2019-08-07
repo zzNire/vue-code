@@ -1,0 +1,20 @@
+<head>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">  
+    </head>
+    <body>
+         <button id='click'>click</button>
+         <p>123</p>
+    </body>
+    
+    <script>
+        var channnel = new BroadcastChannel('chat');
+        channnel.onmessage = (e)=>{
+            console.log(e.data);
+        }
+        document.getElementById('click').addEventListener('click',()=>{
+        console.log('click')
+        channnel.postMessage('a');
+    })
+    </script>
+    <style>
+    </style>

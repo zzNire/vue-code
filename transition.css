@@ -2,7 +2,7 @@
     height: 50px;
     width: 50px;
     background-color: lightskyblue;
-    transition:1s ,1s 1s opacity;
+    transition:1s all ;
   
 }
 

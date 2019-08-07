@@ -30,6 +30,7 @@ var nirean = new Man();
 
 //原型模式 通过字面量
 var Women = function(){};
+
 Women.prototype = {
     construtor:Women,
     sexule:"women",
@@ -116,11 +117,12 @@ var Person = {
 }
 function object (o){
     function f(){};
-    f.prototype = 0;
+    f.prototype = o;
     return new f();
 }
 
 var x  = object(Person)
+
 var anotherperson = Object.create(Person,{
     name:{
         value :"nire"

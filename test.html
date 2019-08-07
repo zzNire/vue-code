@@ -1,8 +1,46 @@
 <head>
-      
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">  
 </head>
 <body>
-     
+     <button>click</button>
+     <p>123</p>
 </body>
-<script src="./codewars/planet.js"></script>
+<script src="./codewars/test.js"></script>
 
+<script>
+    var viewport = document.querySelector('meta[name=viewport]');
+    if(window.devicePixelRatio === 1){
+        viewport.setAttribute('content','width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no')
+    }
+    if(window.devicePixelRatio === 2){
+        viewport.setAttribute('content','width=device-width,initial-scale=0.5,maximum-scale=0.5,minimum-scale=0.5,user-scalable=no')
+    }
+    if(window.devicePixelRatio === 3){
+        viewport.setAttribute('content','width=device-width,initial-scale=0.333,maximum-scale=0.3333,minimum-scale=0.3333,user-scalable=no')
+    }
+    var body = document.body;
+    var fontsize = 10 * (body.clientWidth / 320) + 'px';
+
+    var x =1;
+    console.log(x);
+</script>
+<script>
+    
+</script>
+<style>
+    body{
+        margin: 0;
+    }
+    p{
+        width: 5%;
+        background-color: red
+    }
+    @keyframes run{
+        from{
+            
+        }
+        to{
+            transform: translate(10px,10px)
+        }
+    }
+</style>

@@ -1,0 +1,115 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <p>test</p>
+        </div>
+        
+        <div>
+            
+            <ul>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+                <li><img src="./loading-dot.png" data="http://pic41.nipic.com/20140508/18609517_112216473140_2.jpg"></li>
+            </ul>
+            
+        </div>
+
+    </body>
+    <script>
+        function setRem(){
+            var width = window.innerWidth;
+            document.documentElement.style.fontSize = width/75 + 'px';
+            console.log(width);
+        }
+        setRem();
+        window.addEventListener('resize',setRem);
+        window.addEventListener('load',lazyload);
+        function lazyload(){
+            var innerHeight = window.innerHeight;
+            var images = [...document.getElementsByTagName('img')];
+            //console.log(1);
+            //var scroll_top = window.pageYOffset; // document.body.scrollTop
+            
+            
+            images.forEach((image,index)=>{
+                //var top = image.offsetTop;
+                //var x = top - scroll_top;
+                var x = image.getBoundingClientRect().top;
+                //if(index === 1) 
+                if(x>=0 && x<=innerHeight){
+                    setTimeout(() => {
+                        image.src = image.getAttribute('data');
+                    }, 1000);
+                    
+                }
+            })
+        }
+        window.addEventListener('scroll',lazyload);
+
+        var p = document.getElementsByTagName('p')[0];
+        p.addEventListener('mousedown',(down_e)=>{
+            var p = document.getElementsByTagName('p')[0];
+
+            //var diffx = down_e.clientX - p.offsetLeft;
+            //var diffy = down_e.clientY - p.offsetTop;
+            //console.log(diffx,diffy);
+            console.log(down_e.screenX)
+            function mousemove(e){
+                
+                var movex = e.clientX - down_e.clientX ;
+                var movey = e.clientY - down_e.clientY;
+                //console.log('move:',movex,movey);
+                p.style.transform = `translate(${movex}px,${movey}px)`
+            }
+            function mouseup(up_e){
+                var diffx = up_e.clientX - down_e.clientX;
+                var diffy = up_e.clientY - down_e.clientY;
+                //console.log('up:',diffx,diffy);
+                //p.style.position = 'absolute'
+                p.style.left = `${p.offsetLeft + diffx}px`;
+                p.style.top = `${p.offsetTop + diffy}px`;
+                p.style.transform = '';
+                p.removeEventListener('mousemove',mousemove);
+                p.removeEventListener('mouseup',mouseup);
+            }
+            p.addEventListener('mousemove',mousemove);
+            p.addEventListener('mouseup',mouseup);
+        })
+    </script>
+
+    <style>
+        body{
+           
+        }
+        div{
+           
+        }
+        img {
+            height: 100px;
+            widows: 100px;
+        }
+
+        p{
+            z-index: 1;
+           position: relative;
+            background-color: red;
+            width: 20vw;
+            margin: 0;
+        }
+    </style>
+</html>
