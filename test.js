@@ -1,4 +1,4 @@
-//delete this liabcne
+//delete
 var pow = n => n*n;
 var reverseInt = n => n.toString().split('').reverse().join('');
 
