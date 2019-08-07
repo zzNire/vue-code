@@ -1,4 +1,4 @@
-var double = n => n+2;
+//delete this line
 var pow = n => n*n;
 var reverseInt = n => n.toString().split('').reverse().join('');
 
