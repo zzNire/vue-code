@@ -71,11 +71,45 @@ function quickSort(arr){
     for(let i=1;i<arr.length;i++){
        arr[i]<arr[0]?left.push(arr[i]):right.push(arr[i]);
     }
-    var left = left.length?quickSort(left):[];
-    var right = right.length?quickSort(right):[];
+    left = left.length?quickSort(left):[];
+    right = right.length?quickSort(right):[];
     return left.concat(arr[0],right);
 
 }
+
+function quickSort(arr, left, right) {
+    var len = arr.length,
+        partitionIndex,
+        left = typeof left != 'number' ? 0 : left,
+        right = typeof right != 'number' ? len - 1 : right;
+ 
+    if (left < right) {
+        partitionIndex = partition(arr, left, right);
+        quickSort(arr, left, partitionIndex-1);
+        quickSort(arr, partitionIndex+1, right);
+    }
+    return arr;
+}
+ 
+function partition(arr, left ,right) {     // 分区操作
+    var pivot = left,            // 设定基准值（pivot）
+        index = pivot + 1;
+    for (var i = index; i <= right; i++) {
+        if (arr[i] < arr[pivot]) {
+            swap(arr, i, index);
+            index++;
+        }       
+    }
+    swap(arr, pivot, index - 1);
+    return index-1;
+}
+ 
+function swap(arr, i, j) {
+    var temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
 /* 快速排序 ***
 1. 大的放右边，小的放左边 
 2.时间复杂度 nlogn 空间复杂度 logn

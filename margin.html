@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id='outter'>
+        <div id='inner'>
+
+        </div>
+    </div>
+
+    <div id='empty'>
+
+    </div>
+
+    <p>The bottom margin of this paragraph is collapsed …</p>
+<p>… with the top margin of this paragraph, yielding a margin of <code>1.2rem</code> in between.</p>
+
+<div>This parent element contains two paragraphs!
+  <p>This paragraph has a <code>.4rem</code> margin between it and the text above.</p>
+  <p>My bottom margin collapses with my parent, yielding a bottom margin of <code>2rem</code>.</p>
+</div>
+
+<p>I am <code>2rem</code> below the element above.</p>
+
+<canvas style="width:100px;height:100px;background-color: red;"></canvas>
+<canvas style="width:100px;height:100px;background-color: red;"></canvas>
+</body>
+
+<style>
+    body{
+        margin: 0px;
+    }
+    #outter{
+        background-color: yellow;
+        margin-top:10px;
+    }
+    #inner{
+        width: 100px;
+        height: 100px;
+        margin-top:10px;
+        background-color: red;
+    }
+    #empty{
+        background-color: blue;
+        margin:10px 0;
+        height: 100px;
+        width:100px;
+    }
+    div {
+  background: lavender;
+}
+
+p {
+  margin: .4rem 0 1.2rem 0;
+  background: yellow;
+}
+</style>
+</html>

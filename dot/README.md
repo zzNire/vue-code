@@ -335,6 +335,9 @@ delete obj.name //false
   * 指定了初始值，则从第一个位置开始递归
   * 没有初始值，第一个位置作为初始值，从第二个位置开始递归
 
+
+> array 的遍历方法会忽略空项，但 for of 不会忽略
+
 ###RegExp
 / /.exec(str)  同 String.match()
   * 返回第一个匹配项信息的数组

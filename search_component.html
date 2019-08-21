@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'> 
+            <input @input='inputSearchText'>
+            <myitem v-for='info in results' :key='info.name' :info='info'></item>  
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    var myitem = {
+        template:`<div class='item'>
+            <p v-html="info.name"></p>
+        </div>`,
+        props:{
+            info:{
+                type:Object,
+                default:()=>{return {}},
+            }
+        }
+
+    }
+    var vm = new Vue({
+        el:'#app',
+
+        data(){
+            return {
+                infos:[
+                    {name:'地铁1',},
+                    {name:'地铁6',},
+                    {name:'地铁7',},
+                    {name:'地铁10',},
+                    {name:'地铁11',},
+                    {name:'公交112',},
+                    {name:'公交597',},
+                    {name:'公交593',}, 
+                ],
+                results:[],
+            }
+        },
+        created() {
+            this.results = JSON.parse(JSON.stringify(this.infos));
+        },
+        methods: {
+            inputSearchText : (function(timeout){
+                var timer;
+                return function(e){
+                    if(timer){
+                        clearTimeout(timer);
+                    }
+                    timer = setTimeout(() => {
+                        this.search(e.target.value);
+                        //this.search_text = e.target.value
+                    }, timeout);
+                }
+            })(1000),
+            search(text){
+                var reg = RegExp(`(${text})`);
+                var results = JSON.parse(JSON.stringify(this.infos));
+                var matches = results.filter(info=>info.name.match(reg));
+                matches.forEach(info=>{
+                    info.name = info.name.replace(reg,`<span class='highlight'>$1</span>`
+                )});
+                this.results = matches;
+                console.log(this.results);
+            }
+        },
+        components:{
+            myitem,
+        },
+    })
+</script>
+<style>
+.highlight{
+    color:red;
+}
+</style>
+</html>

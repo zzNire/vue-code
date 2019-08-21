@@ -27,7 +27,29 @@ searchTransition() {
       },
 ```
 
+2. 在获取数据的过程中，通过watch来监听数据，如果获得数据就 生成一个list列表，但是watch的回调是在渲染watcher之前的，watch执行回调的时候列表还没有生成，所以也就不能获得相应的dom。通过nextTick解决，将watch回调函数放在下一个tick中执行
+
 > v-if 是否渲染该dom  v-show 改变display值来控制是否显示
+
+## 确认窗口的实现
+将所有的窗口都同一个根组件进行显示，用户的输入信息通过 一个vue实例来传递。
+
+但是由于所有的组件都通过同一个vue组件广播，所有在接受消息时，需要判断该消息是否是发送给当前组件的
+```js
+//bus.js
+export default new Vue();
+
+//app.vue
+import bus from './bus.js'
+bus.$emit('positiveConfirm',data)
+
+//list.vue
+import bus from './bus.js'
+bus.$on('positiveConfirm',(data)=>{
+
+})
+
+```
 
 ## 适配不同分辨率的手机屏幕
 ### css @media

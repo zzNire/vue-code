@@ -60,3 +60,13 @@ const el = dom.div({},
   );
   
   document.body.appendChild(el);
+
+
+function merge(arr_1,arr_2){
+    var result = [];
+	arr_2.forEach(v => {
+        var a1 = arr_1.filter(a=>(a.indexOf(v)+1)).sort();
+        result = result.concat(a1,v);
+    });
+    return result;
+}

@@ -31,16 +31,18 @@
 
     </body>
     <script>
+        var innerHeight = window.innerHeight;
+
         function setRem(){
             var width = window.innerWidth;
-            document.documentElement.style.fontSize = width/75 + 'px';
+            document.documentElement.style.fontSize = width/75 + 'px'; //html
             console.log(width);
         }
         setRem();
         window.addEventListener('resize',setRem);
         window.addEventListener('load',lazyload);
-        function lazyload(){
-            var innerHeight = window.innerHeight;
+        function lazyload(e){
+            console.log(e);
             var images = [...document.getElementsByTagName('img')];
             //console.log(1);
             //var scroll_top = window.pageYOffset; // document.body.scrollTop
