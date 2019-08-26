@@ -174,3 +174,109 @@ DecorateArmour.prototype.toString = function(){
 
 let tony = new DecorateArmour(new Man());
 console.log(tony.toString())
+
+
+function Sale(price){
+    this.price = price;
+}
+Sale.prototype.getPrice = function(){
+    return this.price;
+}
+Sale.prototype.decorator = function(type){
+    debugger;
+    var fn = Sale.decorators[type];
+    
+    var proto = Object.create(this);
+    function f(){};
+    f.prototype = proto;
+    var newobj = Object.assign(new f(),this);
+    newobj.uber = this;
+    newobj.price = fn.apply(newobj);
+    return newobj;
+}
+
+Sale.decorators = {
+    fedtax(){
+        var price = this.uber.getPrice();
+        price+=price*5/100;
+        return price;
+    },
+    quebec(){
+        var price = this.uber.getPrice();
+        price+=price*7.5/100;
+        return price;
+    },
+}
+
+var sale = new Sale(100);
+sale = sale.decorator('fedtax');
+sale = sale.decorator('quebec');
+sale.getPrice();
+
+
+function Sale(price){
+    this.price = price;
+    this.decorate_list = {};
+}
+Sale.prototype.getPrice = function(){
+    var price = this.price;
+    var list = this.decorate_list.price;
+    list.forEach(operator => {
+        price = Sale.decorators[operator](price);
+    });
+    return price;
+}
+Sale.prototype.decorete = function(key,type){
+    var list = this.decorate_list[key] = this.decorate_list[key] || [];
+    list.push(type);
+}
+Sale.decorators = {
+    fedtax(price){
+        price+=price*5/100;
+        return price;
+    },
+    quebec(price){
+        price+=price*7.5/100;
+        return price;
+    },
+}
+
+var sale = new Sale(100);
+sale.decorete('price','fedtax');
+sale.decorete('price','quebec');
+sale.getPrice();
+
+var data = {
+    name:'niren'
+}
+
+function validator(data){
+    var keys = Object.keys(data);
+    var result_info = '';
+    for(var key of keys){
+        if(validator.config[key]){
+            var type = validator.config[key]
+            var check = validator.types[type].validate(data[key]);
+            if(!check){
+                result_info+=validator.types[type].instructions;
+            }
+        }
+    }
+    return result_info.length?result_info:true;
+}
+
+validator.config = {
+    name:'isNotEmpty'
+}
+
+validator.types = {
+    isNotEmpty:{
+        validate:function(value){
+            return value!='';
+        },
+        instructions :'name can not be empty'   
+        
+    }
+}
+
+validator(data);

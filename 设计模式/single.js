@@ -27,3 +27,39 @@ function createAlert(){
 
 var singleCreate = singleMode(createAlert);
 var alert = singleCreate();
+
+
+function createObject(){
+    var single;
+    return function(){
+        if(!single){
+            single = new Object();
+        }
+        return single;
+    }
+}
+
+var createSingleObject = createObject();
+var single = createSingleObject();
+
+var Universe = (function (){
+    var instance;
+    return function(name){
+        this.name = name
+        if(!instance){
+            instance = this;
+        }
+        return instance;
+    }
+})()
+
+var o1 = new Universe('heel');
+var o2 = new Universe('xxx');
+
+function Universe(name){
+    this.name = name;
+    var instance = this;
+    Universe = function(){
+        return instance;
+    }
+}

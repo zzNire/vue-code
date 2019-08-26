@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul li{
+            height: 100px;
+            width: 100px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+    </ul>
+
+    <script>
+        document.body.ontouchstart = function(e){
+            var touch = e.touches[0];
+            touch.target.startY = undefined;
+            if(document.body.scrollTop === 0){
+                touch.target.startY = touch.pageY;
+            }else if(document.body.scrollHeight === document.body.clientHeight + document.body.scrollTop){
+                touch.target.startY = touch.pageY;
+            }
+            else{
+                return 
+            }
+           // document.body.style.transition = `transform 1s`;
+        }
+        var ifUpdate,ifLoadMore;
+        document.body.ontouchmove = function(e){
+            if(!e.touches[0].target.startY){
+                return;
+            }
+            //console.log(e.touches[0].pageY);
+            var diff = e.touches[0].pageY - e.touches[0].target.startY;
+            console.log(diff)
+            
+            if(diff > 50){
+                ifUpdate = true;
+                return;
+            }
+            if(diff < -50){
+                ifLoadMore = true;
+                return;
+            }
+            document.body.style.transform = `translateY(${diff}px)`;
+        }
+
+        document.body.ontouchend = function(){
+            document.body.style.transform = `translateY(0px)`;
+            if(ifUpdate){
+                update();
+                ifUpdate = false;
+            }
+            if(ifLoadMore){
+                loadMore();
+                ifLoadMore = false;
+            }
+        }
+
+        function update(){
+            console.log('update')
+        }
+
+        function loadMore(){
+            console.log('loadmore')
+        }
+    </script>
+</body>
+</html>

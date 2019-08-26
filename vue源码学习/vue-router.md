@@ -299,7 +299,7 @@ export function createRoute (
 }
 ```
 
-### cinfirmTransition
+### confirmTransition
 
 ```js
   confirmTransition (route: Route, onComplete: Function, onAbort?: Function) {
@@ -592,8 +592,8 @@ beforeEnter
 12. 用创建好的实例调用 beforeRouteEnter 守卫中传给 **next** 的回调函数。
 
 ## 触发路由 
-1. router-link 触发回调函数，拿到to的值，执行vuerouter的 push方法
+1. router-link 触发回调函数，拿到to的值，执行vue-router 的 push方法
 2. 执行 transitionTo 方法, 修改路由路径， vm._route 
 3. 触发 _route 的数据响应，使 router-view 重新渲染
 4. router-view 从 vm.$route.matched 表示路由路径上的全部 RouteRecord
-5. 根据组件的深度，获取当前 view-router 需要渲染的 组件，生成vnode并返回
+5. 根据组件的深度(是否有父 router-view)，获取当前 view-router 需要渲染的 组件，生成vnode并返回

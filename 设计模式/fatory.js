@@ -9,6 +9,10 @@ https://juejin.im/post/59af8fbd5188252f8c2a103a#heading-7
 在简单工厂模式中，可以根据参数的不同返回不同类的实例。
 
 由工厂对象决定创建某一种产品对象类的实例。
+
+1. 创建相似的对象
+2. 当实例类型不确定时，提供一个统一的接口供用户去创建对象
+
 */
 class User{
     constructor(opt){
@@ -270,3 +274,53 @@ class Running extends Speed{
 
 var basketBall = new BasketBall('篮球');
 var running = new Running('跑步');
+
+
+
+function CarMaker(){
+    
+}
+CarMaker.prototype.cardrive = function(){
+    console.log(`Vroom,I have ${this.door_num} doors`);
+}
+
+CarMaker.factory = function(type){
+    if(!CarMaker[type].prototype.drive){
+        CarMaker[type].prototype = new CarMaker();
+    }
+    return new CarMaker[type]();
+    
+}
+
+CarMaker.Compact = function(){
+    this.door_num = 4;
+}
+
+var corolla = CarMaker.factory('Compact');
+
+
+function generator(data){
+    var length = data.length;
+    var index = 0;
+    return {
+        next(){
+            var result
+            if(index < length){
+                result = data[index];
+            }
+            else{
+                result = 'done';
+            }
+            index++;
+            return result;
+        },
+        rewind(){
+            index = 0;
+        },
+        current(){
+            return data[index];
+        }
+    }
+}
+
+var gen = generator([1,2,3,4,,5,6]);

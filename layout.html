@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        #test{
+           
+            height: 100px;
+            width: 100px;
+            transform:translateZ(0);
+            opacity: 1;
+            background: blue;
+        }
+
+        #test.action {
+            width: 200px;
+            height: 200px;
+            font-size: 20px;
+        }
+
+        .article{
+            position: relative;
+            margin: 0px;
+            width: 100px;
+            line-height: 20px;
+            font-size: 16px;
+            height: 40px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp:2;
+            text-overflow: ellipsis;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id='test'>&lt</div>
+
+    <div id="content">
+        <p class="article"> </p>
+    </div>
+    <img src="./loading-dot.png" onload="console.log(1)">
+    <script>
+        setTimeout(() => {
+           // document.getElementById('test').style.opacity = `0`
+            document.getElementById('test').className += 'action';
+            
+        }, 1000);
+
+        var content = document.querySelector('.article');
+        var height = content.offsetHeight;
+        var str = '发顺丰的吗，的南方姑娘，没给你发你，官方，那个，美女，发你看你发了发了那你烤肉饭';
+        var i = 0;
+        while(i<str.length){
+            content.innerHTML = str.slice(0,i);
+            if(content.scrollHeight > height){
+                content.innerHTML = str.slice(0,i-2) + '…';
+                break;
+            }
+            i++;
+        }
+
+        document.body.onload = function(e){
+            console.log(e);
+        }
+      
+        
+    </script>
+</body>
+</html>

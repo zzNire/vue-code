@@ -13,11 +13,37 @@
 
         </ul>
         <input id='myinput'>
+        <div id="s1">s1
+                <div id="s2">s2</div>
+            </div>
+            <script>
+                s1.addEventListener("click",function(e){
+                    console.log("s1 冒泡事件");
+                },false);
+                s2.addEventListener("click",function(e){
+                    console.log("s2 冒泡事件");
+                },false);
+            </script>
 
 </body>
-<script src="./codewars/test.js"></script>
 
 <script>
+    function loadJS(url,next){
+        var domScript = document.createElement('script');
+        domScript.async = true;
+        next = next || function(){};
+        domScript.onload = function(){
+            console.log('onload');
+            next();
+        }
+        document.querySelector('body').appendChild(domScript);
+        domScript.src = url;
+    }
+    
+    loadJS('./train.js',()=>{
+        loadJS('./train.js');
+    })
+
     var viewport = document.querySelector('meta[name=viewport]');
     if(window.devicePixelRatio === 1){
         viewport.setAttribute('content','width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no')
@@ -68,9 +94,6 @@
     input_dom.addEventListener('compositionstart',onCompositionStart);
     input_dom.addEventListener('compositionend',onCompositionEnd);
 
-</script>
-<script>
-    
 </script>
 <style>
     body{
