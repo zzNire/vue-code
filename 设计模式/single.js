@@ -56,10 +56,3 @@ var Universe = (function (){
 var o1 = new Universe('heel');
 var o2 = new Universe('xxx');
 
-function Universe(name){
-    this.name = name;
-    var instance = this;
-    Universe = function(){
-        return instance;
-    }
-}
