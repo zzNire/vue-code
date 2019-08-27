@@ -16,6 +16,8 @@
 
 searchTransition() {
         if (this.searchMode) {
+
+          
           this.$nextTick(()=>{
             debugger;
           console.log(this.$refs.headerContent);

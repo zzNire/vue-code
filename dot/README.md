@@ -167,7 +167,7 @@ import {myname , getHabby} from '...';;
 ### String 
 * num.toString(10);
 * String(num); null，undefined 没有toStirng方法
-* slice(start,end) substring(start,end)  substr(start,length)  截取
+* slice(start,end) substring(start,end)  substr(start,length)  **返回截取的字符串 不改变原字符串**
 * concat()  **返回新字符串 不改变原字符串**
 * charAt() charCodeAt()
 * indexOf() lastIndexOf()
