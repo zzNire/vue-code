@@ -182,7 +182,7 @@ var instance1 = new SubType("xyc", 23);
 var instance2 = new SubType("lxy", 23);
 
 instance1.colors.push("2"); // ["red", "blue", "green", "2"]
-instance1.colors.push("3"); // ["red", "blue", "green", "3"]
+instance2.colors.push("3"); // ["red", "blue", "green", "3"]
 
 ```
 * 通过`SuperType.call(this, name);`这种方式，每个子类实例里都生成了 colors数组，所以每个子类实例操作colors数组时，指向的不是同一个变量。

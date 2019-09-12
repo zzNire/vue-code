@@ -597,3 +597,17 @@ beforeEnter
 3. 触发 _route 的数据响应，使 router-view 重新渲染
 4. router-view 从 vm.$route.matched 表示路由路径上的全部 RouteRecord
 5. 根据组件的深度(是否有父 router-view)，获取当前 view-router 需要渲染的 组件，生成vnode并返回
+
+
+## 两种方式
+### hash
+window.location.hash
+
+1. 点击事件改变当前url
+2. 通过hashChange事件来监听url的变化来更新组件
+
+### html5 history
+
+window.history
+
+1. 点击事件触发回调，通过 pushState,replaceState 来改变url，并调用相应的更新

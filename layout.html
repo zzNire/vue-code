@@ -7,69 +7,61 @@
     <title>Document</title>
 
     <style>
+        body{
+            margin: 0px;
+        }
         #test{
            
             height: 100px;
             width: 100px;
-            transform:translateZ(0);
-            opacity: 1;
+            transform: translateZ(0);
             background: blue;
         }
-
-        #test.action {
-            width: 200px;
-            height: 200px;
-            font-size: 20px;
+        #child{
+            height: 50px;
+            width: 50px;
+            transform: translateZ(0);
+            background: red;
         }
-
-        .article{
-            position: relative;
-            margin: 0px;
-            width: 100px;
-            line-height: 20px;
-            font-size: 16px;
-            height: 40px;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp:2;
-            text-overflow: ellipsis;
-        }
-
-
+       
+       #content {
+           position: fixed;
+           top:50vh;
+           left:50vw;
+           transform: translate(-50%,-50%);
+           width:100px;
+       }
+       #left{
+           
+           
+           position: absolute;
+           left: 0px;
+           background: red;
+       }
+      
     </style>
 </head>
 <body>
-    <div id='test'>&lt</div>
-
-    <div id="content">
-        <p class="article"> </p>
+    <div id='test'>
+        
     </div>
-    <img src="./loading-dot.png" onload="console.log(1)">
+    <div id='content'>
+        <div id='left'>123456</div>
+        <div id='right'>ds</div>
+    </div>
+
+
     <script>
         setTimeout(() => {
-           // document.getElementById('test').style.opacity = `0`
-            document.getElementById('test').className += 'action';
+           //document.getElementById('test').style.opacity = `0`
+            //document.getElementById('test').className += 'action';
             
         }, 1000);
 
-        var content = document.querySelector('.article');
-        var height = content.offsetHeight;
-        var str = '发顺丰的吗，的南方姑娘，没给你发你，官方，那个，美女，发你看你发了发了那你烤肉饭';
-        var i = 0;
-        while(i<str.length){
-            content.innerHTML = str.slice(0,i);
-            if(content.scrollHeight > height){
-                content.innerHTML = str.slice(0,i-2) + '…';
-                break;
-            }
-            i++;
-        }
-
-        document.body.onload = function(e){
-            console.log(e);
-        }
-      
         
+    
+
+    //var dialog = new Dialog(document.body,()=>{console.log(1)},()=>{console.log(2)})
     </script>
 </body>
 </html>
